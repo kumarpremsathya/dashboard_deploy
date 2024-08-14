@@ -67,7 +67,13 @@ def rbinewhome(request):
         # Loop through each source name
         for source_name in source_names:
             # Check which database the source belongs to
-            if rbi_log.objects.using('rbi').filter(source_name=source_name).exists():
+
+
+            if gem_log.objects.using('gem').filter(source_name=source_name).exists():
+                # Use 'cci' database
+                db_name = 'gem'
+                model = gem_log
+            elif rbi_log.objects.using('rbi').filter(source_name=source_name).exists():
                 # Use 'rbi' database
                 db_name = 'rbi'
                 model = rbi_log
