@@ -535,14 +535,14 @@ def filter_data(request, source_name, model, db_name):
         
         
         # Query the database with the adjusted date range
-        unique_dates = model.objects.using(db_name).filter(
+        unique_dates = model.objects.filter(
             date_of_scraping__date__range=[start_date, end_date],
             source_name=source_name
             ).values('date_of_scraping__date').distinct().order_by('-date_of_scraping__date')
 
         formatted_data = []
         for unique_date in unique_dates:
-            latest_entry = model.objects.using(db_name).filter(
+            latest_entry = model.objects.filter(
                 source_name=source_name,
                 date_of_scraping__date=unique_date['date_of_scraping__date']
             ).order_by('-date_of_scraping').first()  # Use first() instead of latest() for sorting in descending order
