@@ -118,7 +118,7 @@ def rbinewhome(request):
                 continue  # or raise an error
             
             # Query the database for data within the specified date range
-            data[source_name] = model.objects.using(db_name).filter(source_name=source_name, date_of_scraping__date__range=[start_date, end_date]).order_by('-date_of_scraping')
+            data[source_name] = model.objects.filter(source_name=source_name, date_of_scraping__date__range=[start_date, end_date]).order_by('-date_of_scraping')
             
             # Get the latest entry for the source status
             latest_entry = get_latest_entry(db_name, source_name, model)
