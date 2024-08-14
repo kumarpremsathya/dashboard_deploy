@@ -1,0 +1,701 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script> 
+    <style>
+         .container{
+        display:grid;
+       grid-template-rows:8vh 10vh 72vh 10vh;
+       grid-template-columns:420px auto;
+        grid-template-areas: 
+        "one two two two"
+        "one three three three"
+        "one four four four "
+        "one five five five";
+        gap:10px;
+    }
+    .one{grid-area: one;}
+    .two{grid-area: two;}
+    .three{grid-area: three;}
+    .four{grid-area: four;}
+    .five{grid-area: five;}
+
+  
+    </style>
+   
+</head>
+<body>
+    <div class="container">
+        <div class="one">
+            <div id="mySidenav" class="sidenav">
+                <div class="Home" >
+                    {% comment %} <img src="{% static 'image/home.png' %}"class="home-img"> {% endcomment %}
+                     <a href="{% url 'table_details2' %}"><i class="fa fa-home aria-hidden="true"></i> HOME</a> 
+                    <P><a class="links" href="{% url 'rbinewhome' %}">   Probe Agile Data</a></p>
+                     <span><a class="links" href="{% url 'table_details2' %}"> Market Data  </a></span> 
+                
+                </div>
+            
+                      <p class="Datas">Data Sources<hr class="Datas-1" style="color:red;">
+					<!-- Add a class to each data source link -->
+				<a href="{% url 'rbinewfema_datefilter' %}"  class="data-source-link" data-source="rbi_fema"><i class="fa fa-list icons"></i>  RBI_Fema</a>
+				<a href="{% url 'rbinewecb_datefilter' %}"  class="data-source-link" data-source="rbi_ecb"><i class="fa fa-list icons"></i>   RBI_Ecb</a>
+				<a href="{% url 'rbinewodi_datefilter' %}"  class="data-source-link" data-source="rbi_odi"><i class="fa fa-list icons"></i>   RBI_Odi</a>
+				
+                <a href="{% url 'startupindia_datefilter' %}"  class="data-source-link" data-source="startupIndia"><i class="fa fa-list icons"></i> Startup_India</a>
+
+                <a href="{% url 'mca_roc_datefilter' %}"  class="data-source-link" data-source="mca_roc"><i class="fa fa-list icons"></i>  MCA_Roc</a>
+                <a href="{% url 'mca_rd_datefilter' %}"  class="data-source-link" data-source="mca_rd"><i class="fa fa-list icons"></i>  MCA_Rd</a>
+              
+                <a href="{% url 'sebi_so_datefilter' %}"  class="data-source-link" data-source="sebi_ed_cgm"><i class="fa fa-list icons"></i>  SEBI_Settlementorder </a>
+                <a href="{% url 'sebi_ao_datefilter' %}"  class="data-source-link" data-source="sebi_settlementorder"><i class="fa fa-list icons"></i> SEBI_Ao</a>
+                <a href="{% url 'sebi_ed_datefilter' %}"  class="data-source-link" data-source="sebi_ao"><i class="fa fa-list icons"></i>  SEBI_Ed_Cgm</a>
+                <a href="{% url 'sebi_members_datefilter' %}"  class="data-source-link" data-source="sebi_chairperson_members"><i class="fa fa-list icons"></i>  SEBI_ChairPerson_Members</a>
+
+                
+                <a href="{% url 'irdai_life_insurers_datefilter' %}"  class="data-source-link" data-source="irdai_life_insurers"><i class="fa fa-list icons"></i>  IRDAI_Life_Insurers </a>
+                <a href="{% url 'irdai_general_insurers_datefilter' %}"  class="data-source-link" data-source="irdai_general_insurers"><i class="fa fa-list icons"></i>  IRDAI_General_Insurers </a>
+                <a href="{% url 'irdai_health_insurers_datefilter' %}"  class="data-source-link" data-source="irdai_health_insurers"><i class="fa fa-list icons"></i>  IRDAI_Health_Insurers </a>
+                <a href="{% url 'irdai_reinsurers_datefilter' %}"  class="data-source-link" data-source="irdai_reinsurers"><i class="fa fa-list icons"></i>  IRDAI_Reinsurers </a>
+                <a href="{% url 'irdai_reinsurer_branches_datefilter' %}"  class="data-source-link" data-source="irdai_reinsurer_branches"><i class="fa fa-list icons"></i>  IRDAI_Reinsurer_Branches </a>
+                <a href="{% url 'irdai_corporate_surveyors_datefilter' %}"  class="data-source-link" data-source="irdai_corporate_surveyors"><i class="fa fa-list icons"></i>  IRDAI_Corporate_Surveyors </a>
+                <a href="{% url 'irdai_partner_surveyors_datefilter' %}"  class="data-source-link" data-source="irdai_partner_surveyors"><i class="fa fa-list icons"></i>  IRDAI_Partner_Surveyors </a>
+                <a href="{% url 'irdai_third_party_administrators_datefilter' %}"  class="data-source-link" data-source="irdai_third_party_administrators"><i class="fa fa-list icons"></i>  IRDAI_Third_Party_Administrators</a>
+                <a href="{% url 'irdai_web_aggregators_datefilter' %}"  class="data-source-link" data-source="irdai_web_aggregators"><i class="fa fa-list icons"></i>  IRDAI_Web_Aggregators </a>
+                <a href="{% url 'irdai_insurance_repositories_datefilter' %}"  class="data-source-link" data-source="irdai_insurance_repositories"><i class="fa fa-list icons"></i> IRDAI_Insurance_Repositories</a>
+                <a href="{% url 'irdai_insurance_marketing_firms_datefilter' %}"  class="data-source-link" data-source="irdai_insurance_marketing_firms"><i class="fa fa-list icons"></i>  IRDAI_Insurance_Marketing_Firms </a>
+                <a href="{% url 'irdai_corporate_agents_datefilter' %}"  class="data-source-link" data-source="irdai_corporate_agents"><i class="fa fa-list icons"></i>  IRDAI_Corporate_Agents </a>
+                <a href="{% url 'irdai_telemarketer_datefilter' %}"  class="data-source-link" data-source="irdai_telemarketer"><i class="fa fa-list icons"></i>  IRDAI_Telemarketer </a> 
+
+
+
+                <a href="{% url 'pfrda_aggregators_datefilter' %}"  class="data-source-link" data-source="pfrda_aggregators"><i class="fa fa-list icons"></i>  PFRDA_Aggregators</a> 
+                <a href="{% url 'pfrda_cra_datefilter' %}"  class="data-source-link" data-source="pfrda_cra"><i class="fa fa-list icons"></i>  PFRDA_Cra </a> 
+                <a href="{% url 'pfrda_custodian_datefilter' %}"  class="data-source-link" data-source="pfrda_custodian"><i class="fa fa-list icons"></i>  PFRDA_Custodian </a> 
+                <a href="{% url 'pfrda_pension_funds_datefilter' %}"  class="data-source-link" data-source="pfrda_pension_funds"><i class="fa fa-list icons"></i>  PFRDA_Pension_Funds </a> 
+                <a href="{% url 'pfrda_pop_datefilter' %}"  class="data-source-link" data-source="pfrda_pop"><i class="fa fa-list icons"></i>   PFRDA_Pop </a> 
+                <a href="{% url 'pfrda_pop_se_datefilter' %}"  class="data-source-link" data-source="pfrda_pop_se_npstrust"><i class="fa fa-list icons"></i>  PFRDA_Pop_Se </a> 
+                <a href="{% url 'pfrda_ra_individual_datefilter' %}"  class="data-source-link" data-source="pfrda_ra_individual"><i class="fa fa-list icons"></i> PFRDA_Ra_Individual </a> 
+                <a href="{% url 'pfrda_ra_renewal_datefilter' %}"  class="data-source-link" data-source="pfrda_ra_renewal"><i class="fa fa-list icons"></i>  PFRDA_Ra_Renewal </a> 
+                <a href="{% url 'pfrda_trustee_bank_datefilter' %}"  class="data-source-link" data-source="pfrda_trustee_bank"><i class="fa fa-list icons"></i>  PFRDA_Trustee_Bank</a> 
+
+                <a href="{% url 'cci_anti_profiteering_orders_datefilter' %}"  class="data-source-link" data-source="cci_anti_profiteering_orders"><i class="fa fa-list icons"></i>  CCI_Anti_Profiteering_Orders</a> 
+
+                <a href="{% url 'cci_section31_formIII_datefilter' %}"  class="data-source-link" data-source="cci_section31_formIII"><i class="fa fa-list icons"></i>  CCI_Section31_FormIII</a> 
+                <a href="{% url 'cci_section43A_44_datefilter' %}"  class="data-source-link" data-source="cci_section43a_44"><i class="fa fa-list icons"></i>  CCI_Section43a_44</a> 
+
+                <a href="{% url 'nsdl_cp_issuance_datefilter' %}"  class="data-source-link" data-source="nsdl_cp_issuance"><i class="fa fa-list icons"></i>  NSDL_cp_issuance</a> 
+                <a href="{% url 'nsdl_ncd_issuance_datefilter' %}"  class="data-source-link" data-source="nsdl_ncd_issuance"><i class="fa fa-list icons"></i>  NSDL_ncd_issuance</a> 
+                <a href="{% url 'nsdl_cp_outstanding_datefilter' %}"  class="data-source-link" data-source="nsdl_cp_outstanding"><i class="fa fa-list icons"></i>  NSDL_cp_outstanding</a> 
+                <a href="{% url 'nsdl_ncd_outstanding_datefilter' %}"  class="data-source-link" data-source="nsdl_ncd_outstanding"><i class="fa fa-list icons"></i>  NSDL_ncd_outstanding</a> 
+                <a href="{% url 'nsdl_matured_securities_report_datefilter' %}"  class="data-source-link" data-source="nsdl_matured_securities_report"><i class="fa fa-list icons"></i>  NSDL_matured_securities_report</a> 
+                <a href="{% url 'nsdl_active_securities_report_datefilter' %}"  class="data-source-link" data-source="nsdl_active_securities_report"><i class="fa fa-list icons"></i>  NSDL_active_securities_report</a> 
+                <a href="{% url 'nsdl_isin_details_datefilter' %}"  class="data-source-link" data-source="nsdl_isin_details"><i class="fa fa-list icons"></i>  NSDL_ISIN_Details</a> 
+
+                <a href="{% url 'gem_suspended_sellers_entities_datefilter' %}"  class="data-source-link" data-source="gem_suspended_sellers_entities"><i class="fa fa-list icons"></i>  GEM_Suspended_Sellers_Entities</a> 
+
+                <a href="{% url 'ngo_private_sector_companies_datefilter' %}"  class="data-source-link" data-source="ngo_private_sector_companies"><i class="fa fa-list icons"></i>  NGO_Private_Sector_Companies</a>
+                <a href="{% url 'ngo_trust_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_trust_non_government"><i class="fa fa-list icons"></i>  NGO_Trust_Non_Government</a>
+                <a href="{% url 'ngo_academic_institutions_government_datefilter' %}"  class="data-source-link" data-source="ngo_academic_institutions_government"><i class="fa fa-list icons"></i>  NGO_Academic_Institutions_Government</a>
+                <a href="{% url 'ngo_academic_institutions_private_datefilter' %}"  class="data-source-link" data-source="ngo_academic_institutions_private"><i class="fa fa-list icons"></i>  NGO_Academic_Institutions_Private</a>
+                <a href="{% url 'ngo_other_registered_entities_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_other_registered_entities_non_government"><i class="fa fa-list icons"></i> NGO_Other_Registered_Entities_Non_Government</a>
+            </div>
+        </div>
+
+
+        <div class="two">
+            <div class="col-div-6">
+	            <span > Data Extraction Status for Probe Agile Data Sources</span>
+
+	        </div>
+
+        </div>
+
+
+        <div class="three">
+            <div class="box">
+			
+				<p class="Metrics">Metrics from  &nbsp;"{{ data_list.0.Date }}" to  "{{ data_list.6.Date }}"</p> 
+				{% comment %} <p>88<span>Projects</span></p> {% endcomment %}
+				
+			</div>
+
+        </div>
+
+
+        <div class="four">
+            <div class="content-box">
+				<p></p>
+				<br/>
+				<table style="width:100%;">
+                    <tr>
+                        <th>Data Source</th>
+                        <th>Status</th>
+                        <th>#Records</th>
+                        {% for data_entry in data_list %}
+                            <th colspan="2">{{ data_entry.Date }}</th>
+                        {% endfor %}
+                    </tr>
+                    <tr> 
+						<td> </td>
+						<td> </td>
+		                <td> </td>
+						{% for row in data_list %}
+							<td style="color:#6408f7;">Available</td>
+							<td style="color:#6408f7;">Scraped</td>
+						{% endfor %}
+					</tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('rbi_fema');">RBI_Fema</a></td>
+                        <td style="color:{{ recent_colors.rbi_fema }}">{{ recent_statuses.rbi_fema }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.rbi_fema }}</td>
+                      
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.rbi_fema_Data_Available }}</td>
+                            <td style="color:{{ data_entry.rbi_fema_Color }}">{{ data_entry.rbi_fema_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('rbi_ecb');">RBI_Ecb</a></td>
+                        <td style="color:{{ recent_colors.rbi_ecb }}">{{ recent_statuses.rbi_ecb }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.rbi_ecb }}</td>
+                        {% for data_entry in data_list %}
+                            <td>{{ data_entry.rbi_ecb_Data_Available }}</td>
+                            <td style="color:{{ data_entry.rbi_ecb_Color }}">{{ data_entry.rbi_ecb_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('rbi_odi');">RBI_Odi</a></td>
+                        <td style="color:{{ recent_colors.rbi_odi}}">{{ recent_statuses.rbi_odi }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.rbi_odi }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.rbi_odi_Data_Available }}</td>
+                            <td style="color:{{ data_entry.rbi_odi_Color }}">{{ data_entry.rbi_odi_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('startupIndia');">Startup_India</a></td>
+                        <td style="color:{{ recent_colors.startupIndia }}">{{ recent_statuses.startupIndia }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.startupIndia  }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.startupIndia_Data_Available }}</td>
+                            <td style="color:{{ data_entry.startupIndia_Color }}">{{ data_entry.startupIndia_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('mca_roc');">MCA_Roc</a></td>
+                        <td style="color:{{ recent_colors.mca_roc}}">{{ recent_statuses.mca_roc}}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.mca_roc}}</td>
+                        {% for data_entry in data_list %}
+                            <td>{{ data_entry.mca_roc_Data_Available }}</td>
+                            <td style="color:{{ data_entry.mca_roc_Color }}">{{ data_entry.mca_roc_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('mca_rd');">MCA_Rd</a></td>
+                        <td style="color:{{ recent_colors.mca_rd}}">{{ recent_statuses.mca_rd}}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.mca_rd}}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.mca_rd_Data_Available }}</td>
+                            <td style="color:{{ data_entry.mca_rd_Color }}">{{ data_entry.mca_rd_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('sebi_ed_cgm');">SEBI_Ed_Cgm</a></td>
+                        <td style="color:{{ recent_colors.sebi_ed_cgm }}">{{ recent_statuses.sebi_ed_cgm}}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.sebi_ed_cgm}}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.sebi_ed_cgm_Data_Available }}</td>
+                            <td style="color:{{ data_entry.sebi_ed_cgm_Color }}">{{ data_entry.sebi_ed_cgm_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('sebi_settlementorder');">SEBI_Settlementorder</a></td>
+                        <td style="color:{{ recent_colors.sebi_settlementorder }}">{{ recent_statuses.sebi_settlementorder}}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.sebi_settlementorder}}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.sebi_settlementorder_Data_Available }}</td>
+                            <td style="color:{{ data_entry.sebi_settlementorder_Color }}">{{ data_entry.sebi_settlementorder_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('sebi_ao');">SEBI_Ao</a></td>
+                        <td style="color:{{ recent_colors.sebi_ao }}">{{ recent_statuses.sebi_ao }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.sebi_ao }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.sebi_ao_Data_Available }}</td>
+                            <td style="color:{{ data_entry.sebi_ao_Color }}">{{ data_entry.sebi_ao_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('sebi_chairperson_members');">SEBI_ChairPerson_Members</a></td>
+                        <td style="color:{{ recent_colors.sebi_chairperson_members }}">{{ recent_statuses.sebi_chairperson_members }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.sebi_chairperson_members }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.sebi_chairperson_members_Data_Available }}</td>
+                            <td style="color:{{ data_entry.sebi_chairperson_members_Color }}">{{ data_entry.sebi_chairperson_members_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_life_insurers');">IRDAI_Life_Insurers</a></td>
+                        <td style="color:{{ recent_colors.irdai_life_insurers }}">{{ recent_statuses.irdai_life_insurers }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_life_insurers }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_life_insurers_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_life_insurers_Color }}">{{ data_entry.irdai_life_insurers_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_general_insurers');">IRDAI_General_Insurers</a></td>
+                        <td style="color:{{ recent_colors.irdai_general_insurers }}">{{ recent_statuses.irdai_general_insurers }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_general_insurers }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_general_insurers_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_general_insurers_Color }}">{{ data_entry.irdai_general_insurers_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_health_insurers');">IRDAI_Health_Insurers</a></td>
+                        <td style="color:{{ recent_colors.irdai_health_insurers }}">{{ recent_statuses.irdai_health_insurers }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_health_insurers }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_health_insurers_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_health_insurers_Color }}">{{ data_entry.irdai_health_insurers_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_reinsurers');">IRDAI_Reinsurers</a></td>
+                        <td style="color:{{ recent_colors.irdai_reinsurers }}">{{ recent_statuses.irdai_reinsurers }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_reinsurers }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_reinsurers_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_reinsurers_Color }}">{{ data_entry.irdai_reinsurers_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_reinsurer_branches');">IRDAI_Reinsurer_Branches</a></td>
+                        <td style="color:{{ recent_colors.irdai_reinsurer_branches }}">{{ recent_statuses.irdai_reinsurer_branches }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_reinsurer_branches }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_reinsurer_branches_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_reinsurer_branches_Color }}">{{ data_entry.irdai_reinsurer_branches_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_corporate_surveyors');">IRDAI_Corporate_Surveyors</a></td>
+                        <td style="color:{{ recent_colors.irdai_corporate_surveyors }}">{{ recent_statuses.irdai_corporate_surveyors }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_corporate_surveyors }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_corporate_surveyors_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_corporate_surveyors_Color }}">{{ data_entry.irdai_corporate_surveyors_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_partner_surveyors');">IRDAI_Partner_Surveyors</a></td>
+                        <td style="color:{{ recent_colors.irdai_partner_surveyors }}">{{ recent_statuses.irdai_partner_surveyors }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_partner_surveyors }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_partner_surveyors_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_partner_surveyors_Color }}">{{ data_entry.irdai_partner_surveyors_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_third_party_administrators');">IRDAI_Third_Party_Administrators</a></td>
+                        <td style="color:{{ recent_colors.irdai_third_party_administrators }}">{{ recent_statuses.irdai_third_party_administrators }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_third_party_administrators }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_third_party_administrators_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_third_party_administrators_Color }}">{{ data_entry.irdai_third_party_administrators_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_web_aggregators');">IRDAI_Web_Aggregators</a></td>
+                        <td style="color:{{ recent_colors.irdai_web_aggregators }}">{{ recent_statuses.irdai_web_aggregators }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_web_aggregators }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_web_aggregators_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_web_aggregators_Color }}">{{ data_entry.irdai_web_aggregators_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_insurance_repositories');">IRDAI_Insurance_Repositories</a></td>
+                        <td style="color:{{ recent_colors.irdai_insurance_repositories }}">{{ recent_statuses.irdai_insurance_repositories }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_insurance_repositories }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_insurance_repositories_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_insurance_repositories_Color }}">{{ data_entry.irdai_insurance_repositories_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_insurance_marketing_firms');">IRDAI_Insurance_Marketing_Firms</a></td>
+                        <td style="color:{{ recent_colors.irdai_insurance_marketing_firms }}">{{ recent_statuses.irdai_insurance_marketing_firms }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_insurance_marketing_firms }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_insurance_marketing_firms_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_insurance_marketing_firms_Color }}">{{ data_entry.irdai_insurance_marketing_firms_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_corporate_agents');">IRDAI_Corporate_Agents</a></td>
+                        <td style="color:{{ recent_colors.irdai_corporate_agents }}">{{ recent_statuses.irdai_corporate_agents }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_corporate_agents }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_corporate_agents_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_corporate_agents_Color }}">{{ data_entry.irdai_corporate_agents_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('irdai_telemarketer');">IRDAI_Telemarketer</a></td>
+                        <td style="color:{{ recent_colors.irdai_telemarketer }}">{{ recent_statuses.irdai_telemarketer }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.irdai_telemarketer }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.irdai_telemarketer_Data_Available }}</td>
+                            <td style="color:{{ data_entry.irdai_telemarketer_Color }}">{{ data_entry.irdai_telemarketer_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                   
+                    
+                    
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_aggregators');">PFRDA_Aggregators</a></td>
+                        <td style="color:{{ recent_colors.pfrda_aggregators }}">{{ recent_statuses.pfrda_aggregators }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_aggregators }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_aggregators_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_aggregators_Color }}">{{ data_entry.pfrda_aggregators_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_cra');">PFRDA_Cra</a></td>
+                        <td style="color:{{ recent_colors.pfrda_cra }}">{{ recent_statuses.pfrda_cra }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_cra }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_cra_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_cra_Color }}">{{ data_entry.pfrda_cra_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_custodian');">PFRDA_Custodian</a></td>
+                        <td style="color:{{ recent_colors.pfrda_custodian }}">{{ recent_statuses.pfrda_custodian }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_custodian }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_custodian_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_custodian_Color }}">{{ data_entry.pfrda_custodian_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_pension_funds');">PFRDA_Pension_Funds</a></td>
+                        <td style="color:{{ recent_colors.pfrda_pension_funds }}">{{ recent_statuses.pfrda_pension_funds }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_pension_funds }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_pension_funds_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_pension_funds_Color }}">{{ data_entry.pfrda_pension_funds_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_pop');">PFRDA_Pop</a></td>
+                        <td style="color:{{ recent_colors.pfrda_pop }}">{{ recent_statuses.pfrda_pop }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_pop }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_pop_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_pop_Color }}">{{ data_entry.pfrda_pop_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_pop_se_npstrust');">PFRDA_Pop_Se</a></td>
+                        <td style="color:{{ recent_colors.pfrda_pop_se_npstrust }}">{{ recent_statuses.pfrda_pop_se_npstrust }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_pop_se_npstrust }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_pop_se_npstrust_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_pop_se_npstrust_Color }}">{{ data_entry.pfrda_pop_se_npstrust_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_ra_individual');">PFRDA_Ra_Individual</a></td>
+                        <td style="color:{{ recent_colors.pfrda_ra_individual }}">{{ recent_statuses.pfrda_ra_individual }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_ra_individual }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_ra_individual_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_ra_individual_Color }}">{{ data_entry.pfrda_ra_individual_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_ra_renewal');">PFRDA_Ra_Renewal</a></td>
+                        <td style="color:{{ recent_colors.pfrda_ra_renewal }}">{{ recent_statuses.pfrda_ra_renewal }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_ra_renewal }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_ra_renewal_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_ra_renewal_Color }}">{{ data_entry.pfrda_ra_renewal_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('pfrda_trustee_bank');">PFRDA_Trustee_Bank</a></td>
+                        <td style="color:{{ recent_colors.pfrda_trustee_bank }}">{{ recent_statuses.pfrda_trustee_bank }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.pfrda_trustee_bank }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.pfrda_trustee_bank_Data_Available }}</td>
+                            <td style="color:{{ data_entry.pfrda_trustee_bank_Color }}">{{ data_entry.pfrda_trustee_bank_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                   
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('cci_anti_profiteering_orders');">CCI_Anti_Profiteering_Orders</a></td>
+                        <td style="color:{{ recent_colors.cci_anti_profiteering_orders }}">{{ recent_statuses.cci_anti_profiteering_orders }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.cci_anti_profiteering_orders }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.cci_anti_profiteering_orders_Data_Available }}</td>
+                            <td style="color:{{ data_entry.cci_anti_profiteering_orders_Color }}">{{ data_entry.cci_anti_profiteering_orders_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('cci_section31_formIII');">CCI_Section31_FormIII</a></td>
+                        <td style="color:{{ recent_colors.cci_section31_formIII }}">{{ recent_statuses.cci_section31_formIII }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.cci_section31_formIII }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.cci_section31_formIII_Data_Available }}</td>
+                            <td style="color:{{ data_entry.cci_section31_formIII_Color }}">{{ data_entry.cci_section31_formIII_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('cci_section43A_44');">CCI_Section43A_44</a></td>
+                        <td style="color:{{ recent_colors.cci_section43A_44 }}">{{ recent_statuses.cci_section43A_44 }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.cci_section43A_44 }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.cci_section43A_44_Data_Available }}</td>
+                            <td style="color:{{ data_entry.cci_section43A_44_Color }}">{{ data_entry.cci_section43A_44_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('nsdl_cp_issuance');">NSDL_cp_issuance</a></td>
+                        <td style="color:{{ recent_colors.nsdl_cp_issuance }}">{{ recent_statuses.nsdl_cp_issuance }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.nsdl_cp_issuance }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.nsdl_cp_issuance_Data_Available }}</td>
+                            <td style="color:{{ data_entry.nsdl_cp_issuance_Color }}">{{ data_entry.nsdl_cp_issuance_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('nsdl_ncd_issuance');">NSDL_ncd_issuance</a></td>
+                        <td style="color:{{ recent_colors.nsdl_ncd_issuance }}">{{ recent_statuses.nsdl_ncd_issuance }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.nsdl_ncd_issuance }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.nsdl_ncd_issuance_Data_Available }}</td>
+                            <td style="color:{{ data_entry.nsdl_ncd_issuance_Color }}">{{ data_entry.nsdl_ncd_issuance_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('nsdl_cp_outstanding');">NSDL_cp_outstanding</a></td>
+                        <td style="color:{{ recent_colors.nsdl_cp_outstanding }}">{{ recent_statuses.nsdl_cp_outstanding }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.nsdl_cp_outstanding }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.nsdl_cp_outstanding_Data_Available }}</td>
+                            <td style="color:{{ data_entry.nsdl_cp_outstanding_Color }}">{{ data_entry.nsdl_cp_outstanding_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('nsdl_ncd_outstanding');">NSDL_ncd_outstanding</a></td>
+                        <td style="color:{{ recent_colors.nsdl_ncd_outstanding }}">{{ recent_statuses.nsdl_ncd_outstanding }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.nsdl_ncd_outstanding }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.nsdl_ncd_outstanding_Data_Available }}</td>
+                            <td style="color:{{ data_entry.nsdl_ncd_outstanding_Color }}">{{ data_entry.nsdl_ncd_outstanding_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('nsdl_matured_securities_report');">NSDL_matured_securities_report</a></td>
+                        <td style="color:{{ recent_colors.nsdl_matured_securities_report }}">{{ recent_statuses.nsdl_matured_securities_report }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.nsdl_matured_securities_report }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.nsdl_matured_securities_report_Data_Available }}</td>
+                            <td style="color:{{ data_entry.nsdl_matured_securities_report_Color }}">{{ data_entry.nsdl_matured_securities_report_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('nsdl_active_securities_report');">NSDL_active_securities_report</a></td>
+                        <td style="color:{{ recent_colors.nsdl_active_securities_report }}">{{ recent_statuses.nsdl_active_securities_report }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.nsdl_active_securities_report }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.nsdl_active_securities_report_Data_Available }}</td>
+                            <td style="color:{{ data_entry.nsdl_active_securities_report_Color }}">{{ data_entry.nsdl_active_securities_report_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('nsdl_isin_details');">NSDL_isin_details</a></td>
+                        <td style="color:{{ recent_colors.nsdl_isin_details }}">{{ recent_statuses.nsdl_isin_details }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.nsdl_isin_details }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.nsdl_isin_details_Data_Available }}</td>
+                            <td style="color:{{ data_entry.nsdl_isin_details_Color }}">{{ data_entry.nsdl_isin_details_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('gem_suspended_sellers_entities');">gem_suspended_sellers_entities</a></td>
+                        <td style="color:{{ recent_colors.gem_suspended_sellers_entities }}">{{ recent_statuses.gem_suspended_sellers_entities }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.gem_suspended_sellers_entities }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.gem_suspended_sellers_entities_Data_Available }}</td>
+                            <td style="color:{{ data_entry.gem_suspended_sellers_entities_Color }}">{{ data_entry.gem_suspended_sellers_entities_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_private_sector_companies');">ngo_private_sector_companies</a></td>
+                        <td style="color:{{ recent_colors.ngo_private_sector_companies }}">{{ recent_statuses.ngo_private_sector_companies }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_private_sector_companies }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.ngo_private_sector_companies_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_private_sector_companies_Color }}">{{ data_entry.ngo_private_sector_companies_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_trust_non_government');">ngo_trust_non_government</a></td>
+                        <td style="color:{{ recent_colors.ngo_trust_non_government }}">{{ recent_statuses.ngo_trust_non_government }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_trust_non_government }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.ngo_trust_non_government_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_trust_non_government_Color }}">{{ data_entry.ngo_trust_non_government_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_academic_institutions_government');">ngo_academic_institutions_government</a></td>
+                        <td style="color:{{ recent_colors.ngo_academic_institutions_government }}">{{ recent_statuses.ngo_academic_institutions_government }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_academic_institutions_government }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.ngo_academic_institutions_government_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_academic_institutions_government_Color }}">{{ data_entry.ngo_academic_institutions_government_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_academic_institutions_private');">ngo_academic_institutions_private</a></td>
+                        <td style="color:{{ recent_colors.ngo_academic_institutions_private }}">{{ recent_statuses.ngo_academic_institutions_private }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_academic_institutions_private }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.ngo_academic_institutions_private_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_academic_institutions_private_Color }}">{{ data_entry.ngo_academic_institutions_private_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_other_registered_entities_non_government');">ngo_other_registered_entities_non_government</a></td>
+                        <td style="color:{{ recent_colors.ngo_other_registered_entities_non_government }}">{{ recent_statuses.ngo_other_registered_entities_non_government }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_other_registered_entities_non_government }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.ngo_other_registered_entities_non_government_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_other_registered_entities_non_government_Color }}">{{ data_entry.ngo_other_registered_entities_non_government_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+
+                </table>
+		
+		</div>
+    </div>
+
+
+
+        <div class="five">
+            <div class="col-div-4" style="text-align:center;">
+                <p style="color: #f7403b;">Contact us for support : <a href="mailto:agiledatahelp@gmail.com"
+                    style="color: #f7403b;"> agiledatahelp@gmail.com</a></p>
+            </div> 
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<!-- Load the script containing openPopup function first -->
+    <script src="{% static 'path/to/script.js' %}"></script> 
+	<script>
+     
+    
+ 
+    //Add this script to show the popup on clicking the source_name link in table 
+
+	
+	function openPopup(source_name) {
+		$.ajax({
+			url: `/rbiget_data_for_popup1/${source_name}/`,
+			method: 'GET',
+			success: function (data) {
+				var popupContent = `
+					<div class="popup-container">
+						<span class="close-btn" onclick="closePopup()">X</span>
+						<p class="popup-info">Data Source: <span class="popup-style">${data.source_name}</span></p>
+						<p class="popup-info">Status: <span class="status-text">${data.script_status}</span></p>
+						<p class="popup-info">#Records Scraped: <span class="popup-style">${data.data_scraped}</span></p>
+						<p class="popup-info">Failure Reason: <span class="popup-style">${data.failure_reason}</span></p>
+						<p class="popup-info">Scraped On: <span class="popup-style">${data.date_of_scraping}</span></p>
+					</div>
+				`;
+				$('body').append(popupContent);
+	
+				// Add class to status text based on the status ,adding the color to status in popup window.
+				var statusElement = document.querySelector('.status-text');
+				if (data.script_status.toLowerCase() === 'success') {
+					statusElement.classList.add('green');
+				} else if (data.script_status.toLowerCase() === 'failure'&& data.failure_reason.includes('204')) {
+					statusElement.classList.add('orange');
+				} else if (data.script_status.toLowerCase() === 'failure') {
+					statusElement.classList.add('red');
+				} else if (data.script_status.toLowerCase() === 'not run') {
+					statusElement.classList.add('red');
+				}
+	
+				$('.popup-container').fadeIn();
+			},
+			error: function (xhr, status, error) {
+				alert('Data not available for today.');
+			}
+		});
+	}
+	
+	function closePopup() {
+		$('.popup-container').fadeOut(function () {
+			$(this).remove();
+		});
+	}
+
+    {% comment %} // Highlighting the sidenavbar anchor tag links when we clicked with background colour greenyellow
+
+	function highlightSelectedTable() {
+		var selectedTable = "{{ source_name }}";  // Assuming table_name is defined in your Django context
+		var tableLinks = document.querySelectorAll('[data-source]');
+	
+		tableLinks.forEach(function (link) {
+			if (link.getAttribute('data-source') === selectedTable) {
+				link.classList.add('highlight');
+				// Apply styles directly
+				link.style.backgroundColor = 'greenyellow';
+				link.style.fontWeight = 'bold';
+				// Add any other styles you want to apply
+			}
+		});
+	}
+	
+
+	// Call the function to highlight the selected sidenavbar anchor tag links when we clicked .
+	highlightSelectedTable(); {% endcomment %}
+
+
+	
+ </script>
+
+</body>
+</html>

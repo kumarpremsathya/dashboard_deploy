@@ -1,0 +1,93 @@
+{% extends 'fema/grid_datefilter1.html' %}
+
+{% block content %}
+
+
+<div class="two">
+    <div class="col-div-6">
+        <span > Data Extraction Status for Probe Agile Data Sources</span>
+
+    </div>
+
+</div>
+
+
+<div class="three">
+    <div class="box">
+        <P class="align">{{ source_name }}</P> 
+        <P class="current-status"  style="color: {{ recent_color }}; font-weight:bold;">{{ recent_status }}</P> 
+        <p class="daterange">
+            {% if start_date and end_date %}
+                Start Date: {{ start_date }} | End Date: {{ end_date }}
+            {% elif past_15_days %}
+                Start Date: {{ past_15_days.0 }} | End Date: {{ past_15_days.1 }}
+            {% elif last_month %}
+                Start Date: {{ last_month.0 }} | End Date: {{ last_month.1 }}
+            {% endif %}
+        </p>
+    
+     <div class="drop-down">
+        {% comment %} <P style="font-size:20px"> Start Date :&nbsp;"{{ min_date }}" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End Date :&nbsp; "{{ max_date }}" </p> {% endcomment %}
+            
+           
+            <!-- Custom date range filter -->
+                <form  id="data-filter-form" method="get"  onsubmit="return validateCustomDateRange()">
+                    {{ form.date_range }}
+                    <div id="custom-date-fields" style="display:none;">
+                        {{ form.start_date }}
+                        {{ form.end_date }}
+                    </div>
+                    <button type="submit" id="applyButton">Apply</button>
+                </form>
+                <a href="#" id="downloadExcel">Download Excel</a>    
+                <div id="error-message"></div> 
+               
+        </div>  
+    </div> 
+
+
+</div>
+
+
+<div class="four">
+    <div class="content-box">
+        {% comment %} <p>Historic Results for {{ table_name_filter }}</p> {% endcomment %}
+        <br/>
+        <table id="city-table" class="custom-table">
+          
+            <tr>
+           
+                <th>Status</th>
+                <th>#Records Available</th>
+                <th>#Records Scraped</th>
+                <th>Failure Reason</th>
+                <th>Scraped On</th>
+            </tr>
+      
+            <!-- Loop through your data and display rows -->
+            {% for item in data %}
+                <tr>
+                
+                    <td style="color:{{ item.status_color }}">{{ item.script_status }}</td>
+                    <td >{{ item.data_available }}</td>
+                    <td style="color:{{ item.status_color }}">{{ item.data_scraped }}</td>
+                    <td style="color:{{ item.status_color }}">{{ item.failure_reason }}</td>
+                    <td>{{ item.date_of_scraping }}</td>
+    
+                </tr>
+            {% endfor %}
+       
+    </table>
+</div>
+</div>
+
+
+
+<div class="five">
+    <div class="col-div-4" style="text-align:center;">
+        <p style="color: #f7403b;">Contact us for support : <a href="mailto:agiledatahelp@gmail.com"
+            style="color: #f7403b;"> agiledatahelp@gmail.com</a></p>
+    </div> 
+</div>
+
+{% endblock content %}

@@ -1,0 +1,241 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script> 
+
+
+    <style>
+        .container{
+       display:grid;
+       grid-template-rows:8vh 19vh 63vh 10vh;
+       grid-template-columns:420px auto;
+        grid-template-areas: 
+        "one two two two"
+        "one three three three"
+        "one four four four "
+        "one five five five";
+        gap:10px;
+    }
+    .one{grid-area: one;}
+    .two{grid-area: two;}
+    .three{grid-area: three;}
+    .four{grid-area: four;}
+    .five{grid-area: five;}
+    
+
+    </style>
+   
+</head>
+<body>
+      
+    <div class="container">
+        <div class="one">
+            <div id="mySidenav" class="sidenav">
+                <div class="Home" >
+                    {% comment %} <img src="{% static 'image/home.png' %}"class="home-img"> {% endcomment %}
+                     <a href="{% url 'table_details2' %}"><i class="fa fa-home aria-hidden="true"></i> HOME</a> 
+                    <P><a class="links" href="{% url 'rbinewhome' %}">   Probe Agile Data</a></p>
+                     <span><a class="links" href="{% url 'table_details2' %}"> Market Data  </a></span> 
+                
+                </div>
+            
+                <p class="Datas">Data Sources<hr class="Datas-1" style="color:red;">
+					<!-- Add a class to each data source link -->
+                    <a href="{% url 'rbinewfema_datefilter' %}" class="data-source-link" data-source="rbi_fema"><i class="fa fa-list icons"></i>  RBI_Fema</a>
+                    <a href="{% url 'rbinewecb_datefilter' %}"  class="data-source-link" data-source="rbi_ecb"><i class="fa fa-list icons"></i>   RBI_Ecb</a>
+                    <a href="{% url 'rbinewodi_datefilter' %}" class="data-source-link" data-source="rbi_odi"><i class="fa fa-list icons"></i>   RBI_Odi</a>
+
+                    <a href="{% url 'startupindia_datefilter' %}"  class="data-source-link" data-source="startupIndia"><i class="fa fa-list icons"></i> Startup_India</a>
+                    
+                    <a href="{% url 'mca_roc_datefilter' %}"  class="data-source-link" data-source="mca_roc"><i class="fa fa-list icons"></i>  MCA_Roc</a>
+                    <a href="{% url 'mca_rd_datefilter' %}"  class="data-source-link" data-source="mca_rd"><i class="fa fa-list icons"></i>  MCA_Rd</a>
+                
+                    <a href="{% url 'sebi_so_datefilter' %}"  class="data-source-link" data-source="sebi_ed_cgm"><i class="fa fa-list icons"></i> SEBI_Settlementorder </a>
+                    <a href="{% url 'sebi_ao_datefilter' %}"  class="data-source-link" data-source="sebi_settlementorder"><i class="fa fa-list icons"></i> SEBI_Ao </a>
+                    <a href="{% url 'sebi_ed_datefilter' %}"  class="data-source-link" data-source="sebi_ao"><i class="fa fa-list icons"></i> SEBI_Ed_Cgm </a>
+                    <a href="{% url 'sebi_members_datefilter' %}"  class="data-source-link" data-source="sebi_chairperson_members"><i class="fa fa-list icons"></i>  SEBI_ChairPerson_Members</a>
+            
+                    
+                    <a href="{% url 'irdai_life_insurers_datefilter' %}"  class="data-source-link" data-source="irdai_life_insurers"><i class="fa fa-list icons"></i>  IRDAI_Life_Insurers </a>
+                    <a href="{% url 'irdai_general_insurers_datefilter' %}"  class="data-source-link" data-source="irdai_general_insurers"><i class="fa fa-list icons"></i>  IRDAI_General_Insurers </a>
+                    <a href="{% url 'irdai_health_insurers_datefilter' %}"  class="data-source-link" data-source="irdai_health_insurers"><i class="fa fa-list icons"></i>  IRDAI_Health_Insurers </a>
+                    <a href="{% url 'irdai_reinsurers_datefilter' %}"  class="data-source-link" data-source="irdai_reinsurers"><i class="fa fa-list icons"></i>  IRDAI_Reinsurers </a>
+                    <a href="{% url 'irdai_reinsurer_branches_datefilter' %}"  class="data-source-link" data-source="irdai_reinsurer_branches"><i class="fa fa-list icons"></i>  IRDAI_Reinsurer_Branches </a>
+                    <a href="{% url 'irdai_corporate_surveyors_datefilter' %}"  class="data-source-link" data-source="irdai_corporate_surveyors"><i class="fa fa-list icons"></i>  IRDAI_Corporate_Surveyors </a>
+                    <a href="{% url 'irdai_partner_surveyors_datefilter' %}"  class="data-source-link" data-source="irdai_partner_surveyors"><i class="fa fa-list icons"></i>  IRDAI_Partner_Surveyors </a>
+                    <a href="{% url 'irdai_third_party_administrators_datefilter' %}"  class="data-source-link" data-source="irdai_third_party_administrators"><i class="fa fa-list icons"></i>  IRDAI_Third_Party_Administrators</a>
+                    <a href="{% url 'irdai_web_aggregators_datefilter' %}"  class="data-source-link" data-source="irdai_web_aggregators"><i class="fa fa-list icons"></i>  IRDAI_Web_Aggregators </a>
+                    <a href="{% url 'irdai_insurance_repositories_datefilter' %}"  class="data-source-link" data-source="irdai_insurance_repositories"><i class="fa fa-list icons"></i> IRDAI_Insurance_Repositories</a>
+                    <a href="{% url 'irdai_insurance_marketing_firms_datefilter' %}"  class="data-source-link" data-source="irdai_insurance_marketing_firms"><i class="fa fa-list icons"></i>  IRDAI_Insurance_Marketing_Firms </a>
+                    <a href="{% url 'irdai_corporate_agents_datefilter' %}"  class="data-source-link" data-source="irdai_corporate_agents"><i class="fa fa-list icons"></i>  IRDAI_Corporate_Agents </a>
+                    <a href="{% url 'irdai_telemarketer_datefilter' %}"  class="data-source-link" data-source="irdai_telemarketer"><i class="fa fa-list icons"></i>  IRDAI_Telemarketer </a> 
+
+
+                    <a href="{% url 'pfrda_aggregators_datefilter' %}"  class="data-source-link" data-source="pfrda_aggregators"><i class="fa fa-list icons"></i>  PFRDA_Aggregators</a> 
+                    <a href="{% url 'pfrda_cra_datefilter' %}"  class="data-source-link" data-source="pfrda_cra"><i class="fa fa-list icons"></i>  PFRDA_Cra </a> 
+                    <a href="{% url 'pfrda_custodian_datefilter' %}"  class="data-source-link" data-source="pfrda_custodian"><i class="fa fa-list icons"></i>  PFRDA_Custodian </a> 
+                    <a href="{% url 'pfrda_pension_funds_datefilter' %}"  class="data-source-link" data-source="pfrda_pension_funds"><i class="fa fa-list icons"></i>  PFRDA_Pension_Funds </a> 
+                    <a href="{% url 'pfrda_pop_datefilter' %}"  class="data-source-link" data-source="pfrda_pop"><i class="fa fa-list icons"></i>   PFRDA_Pop </a> 
+                    <a href="{% url 'pfrda_pop_se_datefilter' %}"  class="data-source-link" data-source="pfrda_pop_se_npstrust"><i class="fa fa-list icons"></i>  PFRDA_Pop_Se </a> 
+                    <a href="{% url 'pfrda_ra_individual_datefilter' %}"  class="data-source-link" data-source="pfrda_ra_individual"><i class="fa fa-list icons"></i> PFRDA_Ra_Individual </a> 
+                    <a href="{% url 'pfrda_ra_renewal_datefilter' %}"  class="data-source-link" data-source="pfrda_ra_renewal"><i class="fa fa-list icons"></i>  PFRDA_Ra_Renewal </a> 
+                    <a href="{% url 'pfrda_trustee_bank_datefilter' %}"  class="data-source-link" data-source="pfrda_trustee_bank"><i class="fa fa-list icons"></i>  PFRDA_Trustee_Bank</a> 
+
+                    <a href="{% url 'cci_anti_profiteering_orders_datefilter' %}"  class="data-source-link" data-source="cci_anti_profiteering_orders"><i class="fa fa-list icons"></i> CCI_Anti_Profiteering_Orders</a> 
+
+                    <a href="{% url 'cci_section31_formIII_datefilter' %}"  class="data-source-link" data-source="cci_section31_formIII"><i class="fa fa-list icons"></i> CCI_Section31_FormIII</a> 
+                    <a href="{% url 'cci_section43A_44_datefilter' %}"  class="data-source-link" data-source="cci_section43A_44"><i class="fa fa-list icons"></i>CCI_Section43A_44</a> 
+
+                    <a href="{% url 'nsdl_cp_issuance_datefilter' %}"  class="data-source-link" data-source="nsdl_cp_issuance"><i class="fa fa-list icons"></i>  NSDL_cp_issuance</a> 
+                    <a href="{% url 'nsdl_ncd_issuance_datefilter' %}"  class="data-source-link" data-source="nsdl_ncd_issuance"><i class="fa fa-list icons"></i>  NSDL_ncd_issuance</a> 
+                    <a href="{% url 'nsdl_cp_outstanding_datefilter' %}"  class="data-source-link" data-source="nsdl_cp_outstanding"><i class="fa fa-list icons"></i>  NSDL_cp_outstanding</a> 
+                    <a href="{% url 'nsdl_ncd_outstanding_datefilter' %}"  class="data-source-link" data-source="nsdl_ncd_outstanding"><i class="fa fa-list icons"></i>  NSDL_ncd_outstanding</a> 
+                    <a href="{% url 'nsdl_matured_securities_report_datefilter' %}"  class="data-source-link" data-source="nsdl_matured_securities_report"><i class="fa fa-list icons"></i>  NSDL_matured_securities_report</a> 
+                    <a href="{% url 'nsdl_active_securities_report_datefilter' %}"  class="data-source-link" data-source="nsdl_active_securities_report"><i class="fa fa-list icons"></i>  NSDL_active_securities_report</a> 
+                    <a href="{% url 'nsdl_isin_details_datefilter' %}"  class="data-source-link" data-source="nsdl_isin_details"><i class="fa fa-list icons"></i>  NSDL_isin_details</a> 
+                    
+                    <a href="{% url 'gem_suspended_sellers_entities_datefilter' %}"  class="data-source-link" data-source="gem_suspended_sellers_entities"><i class="fa fa-list icons"></i>  GEM_Suspended_Sellers_Entities</a> 
+
+                    <a href="{% url 'ngo_private_sector_companies_datefilter' %}"  class="data-source-link" data-source="ngo_private_sector_companies"><i class="fa fa-list icons"></i>  NGO_Private_Sector_Companies</a>
+                    <a href="{% url 'ngo_trust_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_trust_non_government"><i class="fa fa-list icons"></i>  NGO_Trust_Non_Government</a>
+                    <a href="{% url 'ngo_academic_institutions_government_datefilter' %}"  class="data-source-link" data-source="ngo_academic_institutions_government"><i class="fa fa-list icons"></i>  NGO_Academic_Institutions_Government</a>
+                    <a href="{% url 'ngo_academic_institutions_private_datefilter' %}"  class="data-source-link" data-source="ngo_academic_institutions_private"><i class="fa fa-list icons"></i>  NGO_Academic_Institutions_Private</a>
+                    <a href="{% url 'ngo_other_registered_entities_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_other_registered_entities_non_government"><i class="fa fa-list icons"></i>  NGO_Other_Registered_Entities_Non_Government</a>
+                </div>
+        </div>
+        {% block content %}{% endblock content %}
+    </div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+	<script>
+
+
+    
+    // function for implementing excel download functionalities  
+    document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('downloadExcel').addEventListener('click', function () {
+                var dateRangeDropdown = document.getElementById('id_date_range');
+                var startDate = document.getElementById('id_start_date').value;
+                var endDate = document.getElementById('id_end_date').value;
+        
+                // Use the selected value from the date range dropdown
+                var dateRange = dateRangeDropdown.options[dateRangeDropdown.selectedIndex].value;
+        
+                // Construct the download link dynamically based on the selected date range and custom dates
+                var downloadLink = window.location.href.split('?')[0] + '?download=true&date_range=' + dateRange;
+        
+                if (dateRange === 'custom') {
+                    // Add custom start_date and end_date to the download link
+                    downloadLink += '&start_date=' + startDate + '&end_date=' + endDate;
+                }
+        
+                window.location.href = downloadLink;
+            });
+    });       
+  
+        
+    // function for implementing dropdown functionalities and showing results in table.
+    window.validateCustomDateRange = function() {
+        var dateRangeDropdown = document.getElementsByName('date_range')[0];
+        var startDateInput = document.getElementsByName('start_date')[0];
+        var endDateInput = document.getElementsByName('end_date')[0];
+        var errorMessage = document.getElementById('error-message');
+    
+        if (dateRangeDropdown.value === 'custom') {
+            // Check if both start date and end date are selected
+            if (!startDateInput.value || !endDateInput.value) {
+                errorMessage.textContent = 'Please select both start date and end date.';
+                return false;
+            }
+    
+            // Check if end date is today or earlier
+            var today = new Date().toISOString().split('T')[0];
+            if (endDateInput.value > today) {
+                errorMessage.textContent = 'End date cannot be later than today.';
+                return false;
+            }
+            
+            // Check if the start date is greater than the end date
+            var startDate = new Date(startDateInput.value);
+            var endDate = new Date(endDateInput.value);
+            if (startDate > endDate) {
+                errorMessage.textContent = 'Start date should not be greater than end date.';
+                return false;
+            }
+    
+
+            // Check if the date range exceeds 60 days
+            var startDate = new Date(startDateInput.value);
+            var endDate = new Date(endDateInput.value);
+            var sixtyDaysLater = new Date(startDate.getTime() + 60 * 24 * 60 * 60 * 1000);
+    
+            if (endDate > sixtyDaysLater) {
+                errorMessage.textContent = 'Date range for custom view cannot exceed 60 days.';
+                return false;
+            }
+    
+            // Hide the error message and display the table
+            errorMessage.textContent = '';
+            document.getElementById('city-table').style.display = 'table'; 
+        }
+    
+        return true;
+    };
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        var customDateFields = document.getElementById('custom-date-fields');
+        var dateRangeDropdown = document.getElementsByName('date_range')[0];
+        var errorMessage = document.getElementById('error-message');
+    
+        // Initial check to show/hide custom date fields
+        toggleCustomDateFields();
+    
+        // Add event listener to the date range dropdown
+        dateRangeDropdown.addEventListener('change', toggleCustomDateFields);
+    
+        function toggleCustomDateFields() {
+            if (dateRangeDropdown.value === 'custom') {
+                customDateFields.style.display = 'block';
+                // Hide the table for the custom option until validated
+                document.getElementById('city-table').style.display = 'table';
+            } else {
+                customDateFields.style.display = 'none';
+                // Show the table for other options
+                document.getElementById('city-table').style.display = 'table';
+            }
+        }
+    });
+
+    // Highlighting the anchor tag links when we clicked with background colour greenyellow
+
+    function highlightSelectedTable() {
+        var selectedTable = "{{ source_name }}";  // Assuming table_name is defined in your Django context
+        var tableLinks = document.querySelectorAll('[data-source]');
+    
+        tableLinks.forEach(function (link) {
+            if (link.getAttribute('data-source') === selectedTable) {
+                link.classList.add('highlight');
+                // Apply styles directly
+                link.style.backgroundColor = 'greenyellow';
+                link.style.fontWeight = 'bold';
+                // Add any other styles you want to apply
+            }
+        });
+    }
+    
+    // Call the function to highlight the selected table on page load
+    highlightSelectedTable();
+    
+
+
+</script>
+
+</body>
+</html>
