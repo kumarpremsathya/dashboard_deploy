@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'probe_agile_dashboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'NAME': 'bse',
+        'NAME': 'gem',
         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
         'USER': 'admin',
         'PASSWORD': '3#Tirupur123',
