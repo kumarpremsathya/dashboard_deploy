@@ -73,45 +73,45 @@ def rbinewhome(request):
                 # Use 'cci' database
                 db_name = 'gem'
                 model = gem_log
-            elif rbi_log.objects.using('rbi').filter(source_name=source_name).exists():
-                # Use 'rbi' database
-                db_name = 'rbi'
-                model = rbi_log
-            elif startup_india_log.objects.using('startup_india').filter(source_name=source_name).exists():
-                db_name = 'startup_india'
-                model = startup_india_log    
-            elif sebi_log.objects.using('sebi').filter(source_name=source_name).exists():
-                # Use 'sebi' database
-                db_name = 'sebi'
-                model = sebi_log
-            elif mca_log.objects.using('mca').filter(source_name=source_name).exists():
-                # Use 'sebi' database
-                db_name = 'mca'
-                model = mca_log
-            elif irdai_log.objects.using('irdai').filter(source_name=source_name).exists():
-                # Use 'sebi' database
-                db_name = 'irdai'
-                model = irdai_log
-            elif pfrda_log.objects.using('pfrda').filter(source_name=source_name).exists():
-                # Use 'sebi' database
-                db_name = 'pfrda'
-                model = pfrda_log
-            elif cci_log.objects.using('cci').filter(source_name=source_name).exists():
-                # Use 'cci' database
-                db_name = 'cci'
-                model = cci_log  
-            elif nsdl_log.objects.using('nsdl').filter(source_name=source_name).exists():
-                # Use 'cci' database
-                db_name = 'nsdl'
-                model = nsdl_log  
-            elif gem_log.objects.using('gem').filter(source_name=source_name).exists():
-                # Use 'cci' database
-                db_name = 'gem'
-                model = gem_log 
-            elif ngo_log.objects.using('ngo').filter(source_name=source_name).exists():
-                # Use 'cci' database
-                db_name = 'ngo'
-                model = ngo_log         
+            # elif rbi_log.objects.using('rbi').filter(source_name=source_name).exists():
+            #     # Use 'rbi' database
+            #     db_name = 'rbi'
+            #     model = rbi_log
+            # elif startup_india_log.objects.using('startup_india').filter(source_name=source_name).exists():
+            #     db_name = 'startup_india'
+            #     model = startup_india_log    
+            # elif sebi_log.objects.using('sebi').filter(source_name=source_name).exists():
+            #     # Use 'sebi' database
+            #     db_name = 'sebi'
+            #     model = sebi_log
+            # elif mca_log.objects.using('mca').filter(source_name=source_name).exists():
+            #     # Use 'sebi' database
+            #     db_name = 'mca'
+            #     model = mca_log
+            # elif irdai_log.objects.using('irdai').filter(source_name=source_name).exists():
+            #     # Use 'sebi' database
+            #     db_name = 'irdai'
+            #     model = irdai_log
+            # elif pfrda_log.objects.using('pfrda').filter(source_name=source_name).exists():
+            #     # Use 'sebi' database
+            #     db_name = 'pfrda'
+            #     model = pfrda_log
+            # elif cci_log.objects.using('cci').filter(source_name=source_name).exists():
+            #     # Use 'cci' database
+            #     db_name = 'cci'
+            #     model = cci_log  
+            # elif nsdl_log.objects.using('nsdl').filter(source_name=source_name).exists():
+            #     # Use 'cci' database
+            #     db_name = 'nsdl'
+            #     model = nsdl_log  
+            # elif gem_log.objects.using('gem').filter(source_name=source_name).exists():
+            #     # Use 'cci' database
+            #     db_name = 'gem'
+            #     model = gem_log 
+            # elif ngo_log.objects.using('ngo').filter(source_name=source_name).exists():
+            #     # Use 'cci' database
+            #     db_name = 'ngo'
+            #     model = ngo_log         
 
             else:
                 # Handle other cases or raise an error
