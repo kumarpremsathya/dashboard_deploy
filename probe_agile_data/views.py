@@ -69,7 +69,7 @@ def rbinewhome(request):
             # Check which database the source belongs to
 
 
-            if gem_log.objects.using('gem').filter(source_name=source_name).exists():
+            if gem_log.objects.filter(source_name=source_name).exists():
                 # Use 'cci' database
                 db_name = 'gem'
                 model = gem_log
