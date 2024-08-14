@@ -90,129 +90,144 @@ WSGI_APPLICATION = 'probe_agile_dashboard.wsgi.application'
 
 
 
+
 DATABASES = {
     'default': {
         'NAME': 'bse',
         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
+        'USER': 'admin',
+        'PASSWORD': '3#Tirupur123',
+        'HOST': 'nsdl.ctsey2682ym9.us-east-1.rds.amazonaws.com',
         'PORT': 3306,
         'OPTIONS': {
             'autocommit': True,
         },
-    },
-    'rbi': {
-        'NAME': 'rbi',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'sebi': {
-        'NAME': 'sebi',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-     'mca': {
-        'NAME': 'mca',
-        'ENGINE':'django.db.backends.mysql' ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-     'irdai': {
-        'NAME': 'irdai',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-     'pfrda': {
-        'NAME': 'pfrda',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'cci': {
-        'NAME': 'cci',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'nsdl': {
-        'NAME': 'nsdl',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'gem': {
-        'NAME': 'gem',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'startup_india': {
-        'NAME': 'startup_india',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'ngo': {
-        'NAME': 'ngo',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
+    }
 }
+
+# DATABASES = {
+#     'default': {
+#         'NAME': 'bse',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     'rbi': {
+#         'NAME': 'rbi',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     'sebi': {
+#         'NAME': 'sebi',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#      'mca': {
+#         'NAME': 'mca',
+#         'ENGINE':'django.db.backends.mysql' ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#      'irdai': {
+#         'NAME': 'irdai',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#      'pfrda': {
+#         'NAME': 'pfrda',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     'cci': {
+#         'NAME': 'cci',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     'nsdl': {
+#         'NAME': 'nsdl',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     'gem': {
+#         'NAME': 'gem',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     'startup_india': {
+#         'NAME': 'startup_india',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     'ngo': {
+#         'NAME': 'ngo',
+#         'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+# }
 
 # Celery Configuration
 CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Example using Redis as the message broker
