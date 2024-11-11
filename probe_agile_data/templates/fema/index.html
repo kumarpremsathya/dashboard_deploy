@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup India Log Data</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Startup India Log Data</h1>
+        <table id="startup-table" class="custom-table">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Source Name</th>
+                    <th>Script Status</th>
+                    <th>Data Available</th>
+                    <th>Data Scraped</th>
+                    <th>Total Record Count</th>
+                    <th>Failure Reason</th>
+                    <th>Comments</th>
+                    <th>Source Status</th>
+                    <th>Newly Added Count</th>
+                    <th>Updated Source Count</th>
+                    <th>Deleted Source</th>
+                    <th>Deleted Source Count</th>
+                    <th>Removal Date</th>
+                    <th>Date of Scraping</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in startup_data %}
+                    <tr>
+                        <td>{{ item.Sr_no }}</td>
+                        <td>{{ item.source_name }}</td>
+                        <td>{{ item.script_status }}</td>
+                        <td>{{ item.data_available }}</td>
+                        <td>{{ item.data_scraped }}</td>
+                        <td>{{ item.total_record_count }}</td>
+                        <td>{{ item.failure_reason }}</td>
+                        <td>{{ item.comments }}</td>
+                        <td>{{ item.source_status }}</td>
+                        <td>{{ item.newly_added_count }}</td>
+                        <td>{{ item.updated_source_count }}</td>
+                        <td>{{ item.deleted_source }}</td>
+                        <td>{{ item.deleted_source_count }}</td>
+                        <td>{{ item.removal_date }}</td>
+                        <td>{{ item.date_of_scraping }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, HttpResponse
 from .models import *
 import json
@@ -10,7 +11,7 @@ from django.http import HttpResponseBadRequest
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_http_methods
 from datetime import date,datetime, timedelta
 from django.shortcuts import get_object_or_404
 from calendar import monthrange
@@ -42,6 +43,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Function for rendering the dashboard
+# @require_http_methods(["GET"])
 def rbinewhome(request): 
     try:
         # Get the current date
@@ -56,7 +58,7 @@ def rbinewhome(request):
                         'irdai_insurance_repositories', 'irdai_insurance_marketing_firms', 'irdai_corporate_agents', 'irdai_telemarketer', 'pfrda_aggregators',  'pfrda_cra', 'pfrda_custodian',
                         'pfrda_pension_funds', 'pfrda_pop', 'pfrda_pop_se_npstrust', 'pfrda_ra_individual',  'pfrda_ra_renewal', 'pfrda_trustee_bank','cci_anti_profiteering_orders','cci_section31_formIII','cci_section43A_44', 
                         'nsdl_cp_issuance', 'nsdl_ncd_issuance', 'nsdl_cp_outstanding', 'nsdl_ncd_outstanding',
-                        'nsdl_matured_securities_report', 'nsdl_active_securities_report','nsdl_isin_details', 'gem_suspended_sellers_entities','ngo_private_sector_companies','ngo_trust_non_government','ngo_academic_institutions_government','ngo_academic_institutions_private','ngo_other_registered_entities_non_government']
+                        'nsdl_matured_securities_report', 'nsdl_active_securities_report','nsdl_isin_details', 'gem_suspended_sellers_entities','private_sector_companies_list_revised','ngo_trust_non_government_revised','ngo_academic_institutions_government_revised','ngo_academic_institutions_private_revised','ngo_other_registered_entities_non_government_revised','ngo_registered_societies_non_government_revised']
         
         # Initialize dictionaries to store data
         data = {}
@@ -141,7 +143,7 @@ def rbinewhome(request):
                 data_entry[f'{source_name}_Color'] = color
             data_entry['Date'] = date.strftime('%d-%m-%Y')
             data_list.append(data_entry)
-        print("data_list===", data_list) 
+        # print("data_list===", data_list) 
         
         # Prepare context for rendering the template
         context = {
@@ -167,13 +169,13 @@ def rbinewhome(request):
         # Print the DataFrames in terminal
         print("Data List DataFrame:")
         
-        print(data_df.to_string(index=False, header=True))
-        print("\nLatest Counts DataFrame:")
-        print(counts_df.to_string(index=False, header=True))
-        print("\nRecent Statuses DataFrame:")
-        print(statuses_df.to_string(index=False, header=True))
-        print("\nRecent Colors DataFrame:")
-        print(colors_df.to_string(index=False, header=True))
+        # print(data_df.to_string(index=False, header=True))
+        # print("\nLatest Counts DataFrame:")
+        # print(counts_df.to_string(index=False, header=True))
+        # print("\nRecent Statuses DataFrame:")
+        # print(statuses_df.to_string(index=False, header=True))
+        # print("\nRecent Colors DataFrame:")
+        # print(colors_df.to_string(index=False, header=True))
         
         # Convert DataFrame to HTML to see html page 
         data_html = data_df.to_html()
@@ -337,7 +339,7 @@ def get_color_for_source_status(status):
 
 
 
-
+# @require_http_methods(["GET"])
 def rbiget_data_for_popup1(request, source_name):
     try:
         today_date = timezone.now().date()
@@ -410,12 +412,27 @@ def rbiget_data_for_popup1(request, source_name):
             data_scraped = data.data_scraped if data.data_scraped is not None else "0"
             failure_reason = data.failure_reason if data.failure_reason is not None else "-"
 
+            if hasattr(data, 'deleted_source_count'):
+                deleted_source_count = data.deleted_source_count if data.deleted_source_count else "0"
+            else:
+                deleted_source_count = "-"
+
+            # Handle 'newly_added_count' to be '0' if it's None or doesn't exist
+            # Handle 'newly_added_count' with three conditions
+            if hasattr(data, 'newly_added_count'):
+                newly_added_count = data.newly_added_count if data.newly_added_count else "0"
+            else:
+                newly_added_count = "-"
+
+
             response_data = {
                 'source_name': data.source_name,
                 'script_status': data.script_status,
                 'data_scraped': data_scraped,
                 'failure_reason': failure_reason,
                 'date_of_scraping': data.date_of_scraping.strftime('%d-%m-%Y'),
+                'deleted_source_count': deleted_source_count,
+                'newly_added_count': newly_added_count,
             }
             print("response_data====", response_data)
             
@@ -497,6 +514,7 @@ def get_status_color(script_status, failure_reason):
 
 
 """navigation page , Filter and process data based on date range and source name. dropdown functionality included """
+# @require_http_methods(["GET"])
 def filter_data(request, source_name, model, db_name):
     """Filter and process data based on date range and source name."""
     try:
@@ -548,6 +566,20 @@ def filter_data(request, source_name, model, db_name):
             data_scraped = latest_entry.data_scraped if latest_entry.data_scraped is not None else "0"
             failure_reason = latest_entry.failure_reason if latest_entry.failure_reason is not None else "-"
 
+            
+            if hasattr(latest_entry, 'deleted_source_count'):
+                deleted_source_count = latest_entry.deleted_source_count if latest_entry.deleted_source_count else "0"
+            else:
+                deleted_source_count = "-"
+
+            # Handle 'newly_added_count' to be '0' if it's None or doesn't exist
+            # Handle 'newly_added_count' with three conditions
+            if hasattr(latest_entry, 'newly_added_count'):
+                newly_added_count = latest_entry.newly_added_count if latest_entry.newly_added_count else "0"
+            else:
+                newly_added_count = "-"
+
+
             formatted_data.append({
                 'source_name': latest_entry.source_name,
                 'script_status': latest_entry.script_status,
@@ -556,6 +588,8 @@ def filter_data(request, source_name, model, db_name):
                 'data_scraped': data_scraped,
                 'date_of_scraping': formatted_date,
                 'status_color': status_color,
+                'deleted_source_count': deleted_source_count,
+                'newly_added_count': newly_added_count,
             })
             
         
@@ -613,13 +647,13 @@ def startupindia_datefilter(request):
 
 # sebi urls
 
-def sebi_so_datefilter(request):
+def sebi_ed_datefilter(request):
     return filter_data(request, 'sebi_ed_cgm', sebi_log, 'sebi')
 
-def sebi_ao_datefilter(request):
+def sebi_so_datefilter(request):
     return filter_data(request, 'sebi_settlementorder', sebi_log, 'sebi')
 
-def sebi_ed_datefilter(request):
+def sebi_ao_datefilter(request):
     return filter_data(request, 'sebi_ao',  sebi_log, 'sebi')
 
 def sebi_members_datefilter(request):
@@ -742,15 +776,17 @@ def gem_suspended_sellers_entities_datefilter(request):
     return filter_data(request, 'gem_suspended_sellers_entities', gem_log, 'gem')
 
 def ngo_private_sector_companies_datefilter(request):
-    return filter_data(request, 'ngo_private_sector_companies', ngo_log, 'ngo')
+    return filter_data(request, 'private_sector_companies_list_revised', ngo_log, 'ngo')
 def ngo_trust_non_government_datefilter(request):
-    return filter_data(request, 'ngo_trust_non_government', ngo_log, 'ngo')
+    return filter_data(request, 'ngo_trust_non_government_revised', ngo_log, 'ngo')
 def ngo_academic_institutions_government_datefilter(request):
-    return filter_data(request, 'ngo_academic_institutions_government', ngo_log, 'ngo')
+    return filter_data(request, 'ngo_academic_institutions_government_revised', ngo_log, 'ngo')
 def ngo_academic_institutions_private_datefilter(request):
-    return filter_data(request, 'ngo_academic_institutions_private', ngo_log, 'ngo')
+    return filter_data(request, 'ngo_academic_institutions_private_revised', ngo_log, 'ngo')
 def ngo_other_registered_entities_non_government_datefilter(request):
-    return filter_data(request, 'ngo_other_registered_entities_non_government', ngo_log, 'ngo')
+    return filter_data(request, 'ngo_other_registered_entities_non_government_revised', ngo_log, 'ngo')
+def ngo_registered_societies_non_government_datefilter(request):
+    return filter_data(request, 'ngo_registered_societies_non_government_revised', ngo_log, 'ngo')
 
 # startup india
 
@@ -873,8 +909,8 @@ def export_to_excel(request, data, date_range, start_date, end_date, source_name
 
 
 def rbi_tab(request):
-    rbi_data= rbi_log.objects.using('rbi').all()
-    return render(request,'fema/index.html', {'rbi_data':rbi_data}) 
+    startup_data= startup_india_log.objects.using('startup_india').all()
+    return render(request,'fema/index.html', {'startup_data':startup_data}) 
 
 
 # #function for dashboard functionality

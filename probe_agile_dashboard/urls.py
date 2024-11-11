@@ -15,10 +15,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path,include
+from django.conf.urls import handler404,handler403
+from market_data.views import handler404 
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('',include('market_data.urls')),
-    path('',include('probe_agile_data.urls')),
+    path('probe/',include('probe_agile_data.urls')),
 ]
+
+
+# Serve static files locally only if DEBUG is False
+if not settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Register the custom 404 handler
+handler404 = 'market_data.views.handler404'
+# handler403 = 'market_data.views.handler403'
+# handler404 = 'probe_agile_data.views.handler404'

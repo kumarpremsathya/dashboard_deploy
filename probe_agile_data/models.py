@@ -70,6 +70,9 @@ class irdai_log(models.Model):
     comments= models.CharField(max_length=255)
     # data_updated= models.IntegerField(default=0)
     source_status = models.CharField(max_length=255, default='Active')
+    # newly_added_count = models.CharField(max_length=255)
+    deleted_source = models.CharField(max_length=255)
+    deleted_source_count = models.CharField(max_length=255)
     date_of_scraping = models.DateTimeField(null=True, blank=True)
     
     
@@ -89,6 +92,9 @@ class pfrda_log(models.Model):
     comments= models.CharField(max_length=255)
     # data_updated= models.IntegerField(default=0)
     source_status = models.CharField(max_length=255, default='Active')
+    # newly_added_count = models.CharField(max_length=255)
+    deleted_source = models.CharField(max_length=255)
+    deleted_source_count = models.CharField(max_length=255)
     date_of_scraping = models.DateTimeField(null=True, blank=True)
     
     
@@ -125,6 +131,9 @@ class nsdl_log(models.Model):
     failure_reason =models.CharField(max_length=255)
     comments = models.CharField(max_length=255)
     source_status = models.CharField(max_length=255, default='Active')
+    # newly_added_count = models.CharField(max_length=255)
+    deleted_source = models.CharField(max_length=255)
+    deleted_source_count = models.CharField(max_length=255)
     date_of_scraping = models.DateTimeField(null=True, blank=True)
     
     
@@ -141,6 +150,7 @@ class gem_log(models.Model):
     failure_reason = models.CharField(max_length=255)
     comments = models.CharField(max_length=255)
     source_status = models.CharField(max_length=255, default='Active')
+    newly_added_count = models.CharField(max_length=255)
     deleted_source = models.CharField(max_length=255)
     deleted_source_count = models.CharField(max_length=255)
     removal_date = models.CharField(max_length=255)
@@ -160,6 +170,7 @@ class startup_india_log(models.Model):
     failure_reason = models.CharField(max_length=255)
     comments = models.CharField(max_length=255)
     source_status = models.CharField(max_length=255, default='Active')
+    newly_added_count = models.CharField(max_length=255)
     deleted_source = models.CharField(max_length=255)
     deleted_source_count = models.CharField(max_length=255)
     removal_date = models.CharField(max_length=255)
@@ -179,6 +190,7 @@ class ngo_log(models.Model):
     failure_reason = models.CharField(max_length=255)
     comments = models.CharField(max_length=255)
     source_status = models.CharField(max_length=255, default='Active')
+    newly_added_count = models.CharField(max_length=255)
     deleted_source = models.CharField(max_length=255)
     deleted_source_count = models.CharField(max_length=255)
     removal_date = models.CharField(max_length=255)

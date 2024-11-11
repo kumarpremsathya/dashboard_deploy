@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="{% static './stylesheet.css' %}" type="text/css"/> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static './stylesheet.css' %}" type="text/css"/> 
+    
     <script src="{% static 'script.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.1/css/all.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
     <style>
         .container{
        display:grid;
@@ -42,10 +45,15 @@
 		<span><a class="links" href="{% url 'table_details2' %}"> Market Data  </a></span>
         <p class="logo"><span> Data sources</span></p><hr>
        
-        {% for table_name in table_names %}
-            <a href="{% url 'table_details' table_name %}?table_names={{ table_names|join:',' }}" style="font-weight: bold;">
-                <i class="fa fa-list icons">&nbsp;{{ table_name }}</i></a>
-        {% endfor %}
+        <!-- {% for table_name in table_names %}
+            <a href="{% url 'table_details' table_name %}" style="font-weight: bold;">
+                &nbsp;{{ table_name }}</a>
+        {% endfor %} -->
+
+         <!-- In your template where you generate links -->
+         {% for table_name, url_name in url_friendly_names %}
+         <a href="{% url 'table_details' url_name %}" class="table-link">&nbsp;{{ table_name }}</a>
+         {% endfor %}  
        </div>
     </div>
 
@@ -72,7 +80,7 @@
     <div class="card">
         <div style="display: flex;">
         <div class="left" style="flex: 1;">
-            <table>
+            <table >
                 <thead><tr> <td rowspan="2" style="text-align: center; padding: 29px; color: #6408f7; font-size: 16px; font-weight: bold; text-transform: capitalize;width: 150px;">
                     Data source
                   </td></tr></thead>
@@ -98,6 +106,9 @@
                 <tr><td style="text-align: left;"><a href="#" onclick="openPopup('nse_pledge_new');">nse_pledge_new </a></td></tr>
                 <tr><td style="text-align: left;"><a href="#" onclick="openPopup('bse_shp');"> bse_shp</a></td></tr>
                 <tr><td style="text-align: left;"><a href="#" onclick="openPopup('ace_shp');"> ace_shp </a></td></tr>
+                <tr><td style="text-align: left;"><a href="#" onclick="openPopup('ace_shp');"> NSE security list equity segment </a></td></tr>
+                <tr><td style="text-align: left;"><a href="#" onclick="openPopup('ace_shp');"> NSE security list trading sme </a></td></tr>
+                <tr><td style="text-align: left;"><a href="#" onclick="openPopup('ace_shp');"> bse security list </a></td></tr>
               </tbody>
             </table>
           </div>
@@ -213,7 +224,6 @@
 
 	
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
 		
 		// When the user clicks on <div>, open the popup
@@ -310,6 +320,8 @@
                                     <p class="popup-info">#Records Scraped : <span class="popup-style">${data.no_of_data_scraped}</span></p>
                                     <p class="popup-info">Failure Reason : <span class="popup-style">${data.reason ? data.reason : '-'}</span></p>
                                     <p class="popup-info">Trade Date :  <span class="popup-style">${data.trade_date}</span></p>
+                                    <p class="popup-info">Newly Added Count :  <span class="popup-style">${data.newly_added_count}</span></p>
+                                    <p class="popup-info">Deleted Source Count :  <span class="popup-style">${data.deleted_source_count}</span></p>
                                     <p class="popup-info">Scraped On :  <span class="popup-style">${data.Scraped_on}</span></p>
                                 </div>
                             `;

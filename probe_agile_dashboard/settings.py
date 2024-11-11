@@ -14,6 +14,10 @@ from pathlib import Path
 import os
 import configparser
 
+
+from django.core.exceptions import ImproperlyConfigured
+from decouple import config, Csv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,15 +33,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2o7i-xpc1jz_6)c^-(s$_b0k$8wm*ynh_mw*$ag2w^1+gl30@e'
 
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = config('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
 
 
 # Application definition
@@ -50,17 +56,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'market_data',
-    'probe_agile_data'
+    'probe_agile_data',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'probe_agile_data.security_headers.SecurityHeadersMiddleware',
+    'market_data.security_headers.SecurityHeadersMiddleware',
+    'probe_agile_data.middleware.RemoveServerHeaderMiddleware',
+    'market_data.middleware.RemoveServerHeaderMiddleware',
 ]
 
 ROOT_URLCONF = 'probe_agile_dashboard.urls'
@@ -90,129 +103,79 @@ WSGI_APPLICATION = 'probe_agile_dashboard.wsgi.application'
 
 
 
+# Database configuration
 DATABASES = {
     'default': {
-        'NAME': 'bse',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
+        'NAME': config('DEFAULT_DB_NAME', default='bse'),
+        'ENGINE': 'django.db.backends.mysql',               # 'mysql.connector.django'
+        'USER': config('DB_USER', default=''),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default=3306, cast=int),
         'OPTIONS': {
             'autocommit': True,
         },
-    },
-    'rbi': {
-        'NAME': 'rbi',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'sebi': {
-        'NAME': 'sebi',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-     'mca': {
-        'NAME': 'mca',
-        'ENGINE':'django.db.backends.mysql' ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-     'irdai': {
-        'NAME': 'irdai',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-     'pfrda': {
-        'NAME': 'pfrda',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'cci': {
-        'NAME': 'cci',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'nsdl': {
-        'NAME': 'nsdl',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'gem': {
-        'NAME': 'gem',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'startup_india': {
-        'NAME': 'startup_india',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
-    'ngo': {
-        'NAME': 'ngo',
-        'ENGINE': 'django.db.backends.mysql'  ,   # 'django.db.backends.mysql'  'mysql.connector.django'
-        'USER': 'root1',
-        'PASSWORD': 'Mysql1234$',
-        'HOST': '4.213.77.165',
-        'PORT': 3306,
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    },
+    }
 }
+
+
+
+# Dynamic database configuration
+DB_CONFIGS = {
+    'rbi': config('RBI_DB_NAME'),
+    'sebi': config('SEBI_DB_NAME'),
+    'mca': config('MCA_DB_NAME'),
+    'irdai': config('IRDAI_DB_NAME'),
+    'pfrda': config('PFRDA_DB_NAME'),
+    'cci': config('CCI_DB_NAME'),
+    'nsdl': config('NSDL_DB_NAME'),
+    'gem': config('GEM_DB_NAME'),
+    'startup_india': config('STARTUP_INDIA_DB_NAME'),
+    'ngo': config('NGO_DB_NAME'),
+}
+
+# Dynamically add database configurations
+for db_key, db_name in DB_CONFIGS.items():
+    DATABASES[db_key] = {
+        'NAME': db_name,
+        'ENGINE': 'django.db.backends.mysql',              #'mysql.connector.django'
+        'USER': config('DB_USER', default=''),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default=3306, cast=int),
+        'OPTIONS': {
+            'autocommit': True,
+        },
+    }
+
+
+# print("databases==  :", DATABASES)
+
+# DATABASES = {
+#     'default': {
+#         'NAME': 'bse',
+#         'ENGINE': 'django.db.backends.mysql' ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     'rbi': {
+#         'NAME': 'rbi',
+#         'ENGINE': 'django.db.backends.mysql' ,   # 'django.db.backends.mysql'  'mysql.connector.django'
+#         'USER': 'root1',
+#         'PASSWORD': 'Mysql1234$',
+#         'HOST': '4.213.77.165',
+#         'PORT': 3306,
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     },
+#     
+# }
 
 # Celery Configuration
 CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Example using Redis as the message broker
@@ -253,9 +216,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+
+
+DEBUG = False  # Required for production
+
+STATIC_URL = '/static/'  # URL prefix for static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for collected static files
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

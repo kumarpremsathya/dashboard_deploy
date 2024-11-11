@@ -10,6 +10,8 @@ class scraping_log(models.Model):
     comments=models.CharField(max_length=100,default='')
     trade_date=models.CharField(max_length=100,default='')
     source_status=models.CharField(max_length=100, default='Active')
+    newly_added_count = models.CharField(max_length=100,default='')
+    deleted_source_count = models.CharField(max_length=100,default='')
     Scraped_on=models.CharField(max_length=100,default='')
     
     class Meta:

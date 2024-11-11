@@ -5,15 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+
+    <link rel="stylesheet" type="text/css" href="{% static 'probe_agile_data/css/style.css' %}"> 
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.1/css/all.min.css">
+
+   
     <script type="text/javascript" src="{% static 'js/script.js' %}"></script> 
     <style>
          .container{
         display:grid;
        grid-template-rows:8vh 10vh 72vh 10vh;
-       grid-template-columns:420px auto;
+       grid-template-columns:360px auto;
         grid-template-areas: 
         "one two two two"
         "one three three three"
@@ -54,9 +58,10 @@
                 <a href="{% url 'mca_roc_datefilter' %}"  class="data-source-link" data-source="mca_roc"><i class="fa fa-list icons"></i>  MCA_Roc</a>
                 <a href="{% url 'mca_rd_datefilter' %}"  class="data-source-link" data-source="mca_rd"><i class="fa fa-list icons"></i>  MCA_Rd</a>
               
-                <a href="{% url 'sebi_so_datefilter' %}"  class="data-source-link" data-source="sebi_ed_cgm"><i class="fa fa-list icons"></i>  SEBI_Settlementorder </a>
-                <a href="{% url 'sebi_ao_datefilter' %}"  class="data-source-link" data-source="sebi_settlementorder"><i class="fa fa-list icons"></i> SEBI_Ao</a>
-                <a href="{% url 'sebi_ed_datefilter' %}"  class="data-source-link" data-source="sebi_ao"><i class="fa fa-list icons"></i>  SEBI_Ed_Cgm</a>
+               
+                <a href="{% url 'sebi_so_datefilter' %}"  class="data-source-link" data-source="sebi_settlementorder"><i class="fa fa-list icons"></i>  SEBI_Settlementorder </a>
+                <a href="{% url 'sebi_ao_datefilter' %}"  class="data-source-link" data-source="sebi_ao"><i class="fa fa-list icons"></i> SEBI_Ao</a>
+                <a href="{% url 'sebi_ed_datefilter' %}"  class="data-source-link" data-source="sebi_ed_cgm"><i class="fa fa-list icons"></i>  SEBI_Ed_Cgm</a>
                 <a href="{% url 'sebi_members_datefilter' %}"  class="data-source-link" data-source="sebi_chairperson_members"><i class="fa fa-list icons"></i>  SEBI_ChairPerson_Members</a>
 
                 
@@ -101,11 +106,12 @@
 
                 <a href="{% url 'gem_suspended_sellers_entities_datefilter' %}"  class="data-source-link" data-source="gem_suspended_sellers_entities"><i class="fa fa-list icons"></i>  GEM_Suspended_Sellers_Entities</a> 
 
-                <a href="{% url 'ngo_private_sector_companies_datefilter' %}"  class="data-source-link" data-source="ngo_private_sector_companies"><i class="fa fa-list icons"></i>  NGO_Private_Sector_Companies</a>
-                <a href="{% url 'ngo_trust_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_trust_non_government"><i class="fa fa-list icons"></i>  NGO_Trust_Non_Government</a>
-                <a href="{% url 'ngo_academic_institutions_government_datefilter' %}"  class="data-source-link" data-source="ngo_academic_institutions_government"><i class="fa fa-list icons"></i>  NGO_Academic_Institutions_Government</a>
-                <a href="{% url 'ngo_academic_institutions_private_datefilter' %}"  class="data-source-link" data-source="ngo_academic_institutions_private"><i class="fa fa-list icons"></i>  NGO_Academic_Institutions_Private</a>
-                <a href="{% url 'ngo_other_registered_entities_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_other_registered_entities_non_government"><i class="fa fa-list icons"></i> NGO_Other_Registered_Entities_Non_Government</a>
+                <a href="{% url 'ngo_private_sector_companies_datefilter' %}"  class="data-source-link" data-source="private_sector_companies_list_revised"><i class="fa fa-list icons"></i>  NGO_Private_Sector_Companies</a>
+                <a href="{% url 'ngo_trust_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_trust_non_government_revised"><i class="fa fa-list icons"></i>  NGO_Trust_Non_Government</a>
+                <a href="{% url 'ngo_academic_institutions_government_datefilter' %}"  class="data-source-link" data-source="ngo_academic_institutions_government_revised"><i class="fa fa-list icons"></i>  NGO_Academic_Institutions_Government</a>
+                <a href="{% url 'ngo_academic_institutions_private_datefilter' %}"  class="data-source-link" data-source="ngo_academic_institutions_private_revised"><i class="fa fa-list icons"></i>  NGO_Academic_Institutions_Private</a>
+                <a href="{% url 'ngo_other_registered_entities_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_other_registered_entities_non_government_revised"><i class="fa fa-list icons"></i> NGO_Other_Registered_Entities_Non_Government</a>
+                <a href="{% url 'ngo_registered_societies_non_government_datefilter' %}"  class="data-source-link" data-source="ngo_registered_societies_non_government_revised"><i class="fa fa-list icons"></i> NGO_Registered_Societies_Non_Government</a>
             </div>
         </div>
 
@@ -555,50 +561,60 @@
                     </tr>
 
                     <tr>
-                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_private_sector_companies');">ngo_private_sector_companies</a></td>
-                        <td style="color:{{ recent_colors.ngo_private_sector_companies }}">{{ recent_statuses.ngo_private_sector_companies }}</td>
-                        <td style="color:#6408f7;">{{ latest_counts.ngo_private_sector_companies }}</td>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('private_sector_companies_list_revised');">ngo_private_sector_companies</a></td>
+                        <td style="color:{{ recent_colors.private_sector_companies_list_revised }}">{{ recent_statuses.private_sector_companies_list_revised }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.private_sector_companies_list_revised }}</td>
                         {% for data_entry in data_list %}
-                            <td >{{ data_entry.ngo_private_sector_companies_Data_Available }}</td>
-                            <td style="color:{{ data_entry.ngo_private_sector_companies_Color }}">{{ data_entry.ngo_private_sector_companies_Data_Scraped }}</td>
+                            <td >{{ data_entry.private_sector_companies_list_revised_Data_Available }}</td>
+                            <td style="color:{{ data_entry.private_sector_companies_list_revised_Color }}">{{ data_entry.private_sector_companies_list_revised_Data_Scraped }}</td>
                         {% endfor %}
                     </tr>
 
                     <tr>
-                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_trust_non_government');">ngo_trust_non_government</a></td>
-                        <td style="color:{{ recent_colors.ngo_trust_non_government }}">{{ recent_statuses.ngo_trust_non_government }}</td>
-                        <td style="color:#6408f7;">{{ latest_counts.ngo_trust_non_government }}</td>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_trust_non_government_revised');">ngo_trust_non_government</a></td>
+                        <td style="color:{{ recent_colors.ngo_trust_non_government_revised }}">{{ recent_statuses.ngo_trust_non_government_revised }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_trust_non_government_revised }}</td>
                         {% for data_entry in data_list %}
-                            <td >{{ data_entry.ngo_trust_non_government_Data_Available }}</td>
-                            <td style="color:{{ data_entry.ngo_trust_non_government_Color }}">{{ data_entry.ngo_trust_non_government_Data_Scraped }}</td>
+                            <td >{{ data_entry.ngo_trust_non_government_revised_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_trust_non_government_revised_Color }}">{{ data_entry.ngo_trust_non_government_revised_Data_Scraped }}</td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_academic_institutions_government');">ngo_academic_institutions_government</a></td>
-                        <td style="color:{{ recent_colors.ngo_academic_institutions_government }}">{{ recent_statuses.ngo_academic_institutions_government }}</td>
-                        <td style="color:#6408f7;">{{ latest_counts.ngo_academic_institutions_government }}</td>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_academic_institutions_government_revised');">ngo_academic_institutions_government</a></td>
+                        <td style="color:{{ recent_colors.ngo_academic_institutions_government_revised }}">{{ recent_statuses.ngo_academic_institutions_government_revised }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_academic_institutions_government_revised }}</td>
                         {% for data_entry in data_list %}
-                            <td >{{ data_entry.ngo_academic_institutions_government_Data_Available }}</td>
-                            <td style="color:{{ data_entry.ngo_academic_institutions_government_Color }}">{{ data_entry.ngo_academic_institutions_government_Data_Scraped }}</td>
+                            <td >{{ data_entry.ngo_academic_institutions_government_revised_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_academic_institutions_government_revised_Color }}">{{ data_entry.ngo_academic_institutions_government_revised_Data_Scraped }}</td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_academic_institutions_private');">ngo_academic_institutions_private</a></td>
-                        <td style="color:{{ recent_colors.ngo_academic_institutions_private }}">{{ recent_statuses.ngo_academic_institutions_private }}</td>
-                        <td style="color:#6408f7;">{{ latest_counts.ngo_academic_institutions_private }}</td>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_academic_institutions_private_revised');">ngo_academic_institutions_private</a></td>
+                        <td style="color:{{ recent_colors.ngo_academic_institutions_private_revised }}">{{ recent_statuses.ngo_academic_institutions_private_revised }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_academic_institutions_private_revised }}</td>
                         {% for data_entry in data_list %}
-                            <td >{{ data_entry.ngo_academic_institutions_private_Data_Available }}</td>
-                            <td style="color:{{ data_entry.ngo_academic_institutions_private_Color }}">{{ data_entry.ngo_academic_institutions_private_Data_Scraped }}</td>
+                            <td >{{ data_entry.ngo_academic_institutions_private_revised_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_academic_institutions_private_revised_Color }}">{{ data_entry.ngo_academic_institutions_private_revised_Data_Scraped }}</td>
                         {% endfor %}
                     </tr>
                     
                     <tr>
-                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_other_registered_entities_non_government');">ngo_other_registered_entities_non_government</a></td>
-                        <td style="color:{{ recent_colors.ngo_other_registered_entities_non_government }}">{{ recent_statuses.ngo_other_registered_entities_non_government }}</td>
-                        <td style="color:#6408f7;">{{ latest_counts.ngo_other_registered_entities_non_government }}</td>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_other_registered_entities_non_government_revised');">ngo_other_registered_entities_non_government</a></td>
+                        <td style="color:{{ recent_colors.ngo_other_registered_entities_non_government_revised }}">{{ recent_statuses.ngo_other_registered_entities_non_government_revised }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_other_registered_entities_non_government_revised }}</td>
                         {% for data_entry in data_list %}
-                            <td >{{ data_entry.ngo_other_registered_entities_non_government_Data_Available }}</td>
-                            <td style="color:{{ data_entry.ngo_other_registered_entities_non_government_Color }}">{{ data_entry.ngo_other_registered_entities_non_government_Data_Scraped }}</td>
+                            <td >{{ data_entry.ngo_other_registered_entities_non_government_revised_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_other_registered_entities_non_government_revised_Color }}">{{ data_entry.ngo_other_registered_entities_non_government_revised_Data_Scraped }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left;"><a href="#" onclick="openPopup('ngo_registered_societies_non_government_revised');">ngo_registered_societies_non_government</a></td>
+                        <td style="color:{{ recent_colors.ngo_registered_societies_non_government_revised }}">{{ recent_statuses.ngo_registered_societies_non_government_revised }}</td>
+                        <td style="color:#6408f7;">{{ latest_counts.ngo_registered_societies_non_government_revised }}</td>
+                        {% for data_entry in data_list %}
+                            <td >{{ data_entry.ngo_registered_societies_non_government_revised_Data_Available }}</td>
+                            <td style="color:{{ data_entry.ngo_registered_societies_non_government_revised_Color }}">{{ data_entry.ngo_registered_societies_non_government_revised_Data_Scraped }}</td>
                         {% endfor %}
                     </tr>
 
@@ -618,10 +634,8 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<!-- Load the script containing openPopup function first -->
-    <script src="{% static 'path/to/script.js' %}"></script> 
+    <!-- <script src="{% static 'path/to/script.js' %}"></script>  -->
 	<script>
      
     
@@ -631,7 +645,7 @@
 	
 	function openPopup(source_name) {
 		$.ajax({
-			url: `/rbiget_data_for_popup1/${source_name}/`,
+			url: `/probe/rbiget_data_for_popup1/${source_name}/`,
 			method: 'GET',
 			success: function (data) {
 				var popupContent = `
@@ -641,7 +655,10 @@
 						<p class="popup-info">Status: <span class="status-text">${data.script_status}</span></p>
 						<p class="popup-info">#Records Scraped: <span class="popup-style">${data.data_scraped}</span></p>
 						<p class="popup-info">Failure Reason: <span class="popup-style">${data.failure_reason}</span></p>
-						<p class="popup-info">Scraped On: <span class="popup-style">${data.date_of_scraping}</span></p>
+						
+                        <p class="popup-info">Newly Added Count: <span class="popup-style">${data.newly_added_count}</span></p>
+						<p class="popup-info">Deleted Source Count: <span class="popup-style">${data.deleted_source_count}</span></p>
+                        <p class="popup-info">Scraped On: <span class="popup-style">${data.date_of_scraping}</span></p>
 					</div>
 				`;
 				$('body').append(popupContent);

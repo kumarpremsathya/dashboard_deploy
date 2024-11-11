@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'stylesheet.css' %}" type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+    <link rel="stylesheet" href="{% static './stylesheet.css' %}" type="text/css"/>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.1/css/all.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
 </head>
 <style>
     .container{
@@ -45,10 +45,15 @@
             <span><a class="links" href="{% url 'table_details2' %}"> Market Data  </a></span>
         <p class="logo"><span>Data sources</span></p>
         <hr>
-        {% for table_name in table_names %}
-        <a href="{% url 'table_details' table_name %}?table_names={{ table_names|join:',' }}"
-        class="table-link"><i class="fa fa-list icons">&nbsp;{{ table_name }} </i></a>
-        {% endfor %}
+        <!-- {% for table_name in table_names %}
+        <a href="{% url 'table_details' table_name %}"
+        class="table-link">&nbsp;{{ table_name }} </a>
+        {% endfor %} -->
+
+        <!-- In your template where you generate links -->
+        {% for table_name, url_name in url_friendly_names %}
+        <a href="{% url 'table_details' url_name %}" class="table-link">&nbsp;{{ table_name }}</a>
+        {% endfor %} 
     </div>
    </div>
       
@@ -104,6 +109,13 @@
                                         <th># Records Scraped</th>
                                         <th>Failure Reason</th>
                                         <th>Trade Date</th>
+                                        <!-- Conditionally show these columns only for specific table_names -->
+                                        {% if table_name == 'bse security list' or table_name == 'NSE security list equity segment' or table_name == 'NSE security list trading sme' %}
+                                            <th>Newly Added Count</th>
+                                            <th>Deleted Source Count</th>
+                                        {% endif %} 
+                                        <!-- <th>Newly Added Count</th>
+                                        <th>Deleted Source Count</th> -->
                                         <th>Scraped Date</th>
                                     </tr>
                                 </thead>
@@ -142,6 +154,26 @@
                                             </span>
                                             </td>
                                             <td>{{ entry.trade_date|date:"d-m-Y"|default:'-' }}</td>
+
+                                            {% if table_name == 'bse security list' or table_name == 'NSE security list equity segment' or table_name == 'NSE security list trading sme' %}
+                                            <td style="padding: 5px;">
+                                               
+                                                    {{ entry.data.newly_added_count|default:'-' }}
+                                               
+                                            </span>
+                                            </td>
+                                            {% endif %}    
+                                            {% if table_name == 'bse security list' or table_name == 'NSE security list equity segment' or table_name == 'NSE security list trading sme' %}
+                                            <td style="padding: 5px;">
+                                                {% if entry.data %}
+                                                    <span style="color: red;">
+                                                        {{ entry.data.deleted_source_count|default:'-' }}
+                                                    </span>
+                                                {% else %}
+                                                    <span style="color: red;">-</span>
+                                                {% endif %}
+                                            </td>
+                                            {% endif %} 
                                             <td>
                                                 {% if entry.data and entry.data.Scraped_on %}
                                                     {{ entry.data.Scraped_on|date:"d-m-Y"|default:'-' }}

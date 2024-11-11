@@ -68,6 +68,7 @@ urlpatterns = [
     path('ngo_academic_institutions_government_datefilter/', views.ngo_academic_institutions_government_datefilter, name='ngo_academic_institutions_government_datefilter'),
     path('ngo_academic_institutions_private_datefilter/', views.ngo_academic_institutions_private_datefilter, name='ngo_academic_institutions_private_datefilter'),
     path('ngo_other_registered_entities_non_government_datefilter/', views.ngo_other_registered_entities_non_government_datefilter, name='ngo_other_registered_entities_non_government_datefilter'),
+    path('ngo_registered_societies_non_government_datefilter/', views.ngo_registered_societies_non_government_datefilter, name='ngo_registered_societies_non_government_datefilter'),
 ]
 
 

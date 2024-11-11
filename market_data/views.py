@@ -7,18 +7,102 @@ from django.utils import timezone
 import json
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET,require_http_methods
 from django.db.models import Case, When, Value, CharField
 from openpyxl import Workbook
 from openpyxl.styles import Font
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
+from django.http import HttpResponseForbidden
 
 
+import logging
+
+
+
+# views.py
+from django.conf import settings
+from django.http import HttpResponse
+
+def debug_static(request):
+    # static_root = settings.STATIC_ROOT
+    static_dirs = settings.STATICFILES_DIRS
+    return HttpResponse(f"""
+    
+        STATICFILES_DIRS: {static_dirs}
+        DEBUG: {settings.DEBUG}
+    """)
+
+
+# Configure logging
+logger = logging.getLogger(__name__)
+
+
+def handler404(request, exception):
+    """
+    Custom 404 handler that logs the attempt and returns a user-friendly error page
+    """
+    # Log the 404 error with minimal information
+    logger.warning(f"404 error for path: {request.path}")
+    
+    return render(request, 'errors/404.html', status=404)
+
+
+# def handler403(request, exception):
+#     return HttpResponseForbidden(render(request,'errors/403.html', status=403))
+    
+    # return render(request, 'errors/404.html', status=404)
+
+
+# @require_http_methods(["GET"])
 def dashboard(request):
     table_names = scraping_log.objects.values_list('table_name', flat=True).distinct()
     return render(request, 'dashboard.html', {'table_names': table_names})
 
-def table_details(request, table_name):
+
+# URL to Table name mapping
+URL_TO_TABLE_MAPPING = {
+    'company-master': 'ace_Company_master',
+    'bse-equity': 'bse_new_equity',
+    'company-equity': 'ace_company_equity',
+    'company-equity-cons': 'ace_company_equity_cons',
+    'ace-high-low': 'ace_52whl',
+    'market-capital': 'bse_market_capital',
+    'financial-prov': 'bse_financial_PROV',
+    'financial-qc': 'bse_financial_QC',
+    'finance-quarterly': 'ace_finance_Quarterly',
+    'finance-quarterly-cons': 'ace_finance_Quarterly_Cons',
+    'finance-cf': 'ace_Finance_cf',
+    'finance-cons-cf': 'ace_Finance_cons_cf',
+    'finance-fr': 'ace_Finance_fr',
+    'finance-bs': 'ace_Finance_bs',
+    'finance-cons-bs': 'ace_Finance_cons_bs',
+    'capitaline-standalone': 'Capitaline_standalone',
+    'capitaline-consolidated': 'Capitaline_consolidated',
+    'bse-pledge': 'bse_pledge',
+    'nse-pledge': 'nse_pledge_new',
+    'bse-shareholding': 'bse_shp',
+    'ace-shareholding': 'ace_shp',
+    'nse-equity-list': 'NSE security list equity segment',
+    'nse-sme-list': 'NSE security list trading sme',
+    'bse-security-list': 'bse security list'
+}
+
+# Reverse mapping for converting table names to URLs
+TABLE_TO_URL_MAPPING = {v: k for k, v in URL_TO_TABLE_MAPPING.items()}
+
+
+# @require_http_methods(["GET"])
+def table_details(request, url_name):
+
+     # Convert URL name to actual table name
+    table_name = URL_TO_TABLE_MAPPING.get(url_name)
+
+    # if not table_name:
+    #     logger.warning(f"Invalid URL access attempt: {url_name}")
+    #     raise Http404(f"Invalid URL '{url_name}'")
+
+
     amber_table_names = [
         'ace_52whl',
         'ace_Company_master',
@@ -57,10 +141,28 @@ def table_details(request, table_name):
                   'nse_pledge_new',
                   'bse_shp',
                   'ace_shp',
+                  'NSE security list equity segment',
+                  'NSE security list trading sme',
+                  'bse security list'
                   ]
     
+    # Check if the table_name is in the allowed list
+    if table_name not in table_list:
+        logger.warning(f"Invalid table access attempt: {table_name}")
+        raise Http404(f"Table '{table_name}' does not exist")
+
+    # print("debug======",table_names)
     # Fetch all unique table names
     table_names = scraping_log.objects.values_list('table_name', flat=True).distinct()
+
+
+     # Create ordered url_friendly_names following table_list order
+    url_friendly_names = []
+    for table in table_list:
+        if table in table_names:
+            url_name = TABLE_TO_URL_MAPPING.get(table, table)
+            url_friendly_names.append((table, url_name))
+    print("\n\nurl_friendly_names==== ",  url_friendly_names)
 
     table_index = {name: index for index, name in enumerate(table_list)}
 
@@ -72,8 +174,11 @@ def table_details(request, table_name):
             output_field=CharField()
         )
     ).order_by('custom_order')
+
+    print("\n\ntable_names", table_names)
     # Check if the requested table_name is valid
     if table_name not in table_names:
+        print("table names for debug ======",table_name)
         return render(request, 'table_details.html', {'error_message': f'Table {table_name} not found.'})
 
     # Fetch all data for the selected table
@@ -165,6 +270,8 @@ def table_details(request, table_name):
 
     data = {
         'table_name': table_name,
+        'url_name': url_name,
+        'url_friendly_names': url_friendly_names,
         'structured_data': structured_data,
         'failure_reasons': failure_reasons,
         'table_names': table_names,
@@ -215,7 +322,7 @@ def table_details(request, table_name):
         for date in all_dates:
             if date not in date_data_dict:
             # Create a placeholder entry with default values
-                placeholder_entry = scraping_log(trade_date=date, status='No Data', no_of_data_available=0, no_of_data_scraped=0, reason='No Data')
+                placeholder_entry = scraping_log(trade_date=date, status='No Data', no_of_data_available=0, no_of_data_scraped=0, reason='No Data',newly_added_count=0,deleted_source_count=0)
                 date_data_dict[date] = placeholder_entry
 
                 filename = f'{table_name}_data_{start_date}_{end_date}.xlsx'
@@ -231,7 +338,7 @@ def table_details(request, table_name):
         header_font = Font(bold=True)
 
         # Add headers to the worksheet
-        headers = ['Table Name', 'Status','#Records Available', '#Records Scraped','Failure Reason', 'Trade date', 'Scraped on']
+        headers = ['Table Name', 'Status','#Records Available', '#Records Scraped','Failure Reason', 'Trade date', 'Newly Added Count','Deleted Source Count', 'Scraped on']
         for col_num, header in enumerate(headers, start=1):
             cell = worksheet.cell(row=1, column=col_num, value=header)
             cell.font = header_font
@@ -244,14 +351,17 @@ def table_details(request, table_name):
             worksheet.cell(row=row_num, column=4, value=data_entry.no_of_data_scraped)
             worksheet.cell(row=row_num, column=5, value=data_entry.reason)
             worksheet.cell(row=row_num, column=6, value=data_entry.trade_date)
-            worksheet.cell(row=row_num, column=7, value=data_entry.Scraped_on)
+            worksheet.cell(row=row_num, column=7, value=data_entry.newly_added_count)
+            worksheet.cell(row=row_num, column=8, value=data_entry.deleted_source_count)
+            worksheet.cell(row=row_num, column=9, value=data_entry.Scraped_on)
 
         # Save the workbook to the response
         workbook.save(response)
         return response
-
+    print("\n\n\n debugging the data========",data) 
     return render(request, 'table_details.html', data)
 
+# @require_http_methods(["GET"])
 def table_details2(request):
     time_range = request.GET.get('time_range')
     from_date = request.GET.get('from_date')
@@ -288,6 +398,10 @@ def table_details2(request):
         'nse_pledge_new',
         'bse_shp',
         'ace_shp',
+        'NSE security list equity segment',
+        'NSE security list trading sme',
+        'bse security list'
+        
     ]
 
     # Get unique table names for the sidebar and order them based on the table_list
@@ -345,8 +459,10 @@ def table_details2(request):
         # Filter records for the specific table and date range
         if start_date is not None:
             records = scraping_log.objects.filter(table_name=table_name).order_by('-Scraped_on')
+            # print("records debug========".records)
         else:
             records = scraping_log.objects.filter(table_name=table_name).order_by('-Scraped_on')
+            # print("records debug2222========".records)
 
         # Create a dictionary to store data for each date
         date_data = {}
@@ -354,7 +470,9 @@ def table_details2(request):
         # Populate the dictionary with actual data
         for date in date_range:
             record = records.filter(trade_date__exact=str(date)).first()
+            
             if record:
+                # print("for debug---------",record)
                 record.status_stripped = record.status.strip()
                 date_data[date] = {
                     'no_of_data_available': record.no_of_data_available,
@@ -366,6 +484,8 @@ def table_details2(request):
                     'Trade Date': record.trade_date,
                     'total_record_count': record.total_record_count,
                     'source_status':record.source_status,
+                    'Newly Added Count': record.newly_added_count,
+                    'Deleted Source Count': record.deleted_source_count
                 }
                 
             else:
@@ -379,10 +499,16 @@ def table_details2(request):
                     'Trade Date': '-',
                     'total_record_count': 0,
                     'source_status': 'Active',
+                    'newly_added_count' : '-',
+                    'deleted_source_count': '-'
                 }
 
         # Append table data to the main structured_data dictionary
         structured_data[table_name] = date_data
+    
+    # Create URL-friendly names for template
+    url_friendly_names = [(name, TABLE_TO_URL_MAPPING.get(name, name)) for name in table_names]
+    print("url_friendly_names :::::: ",  url_friendly_names)
 
     # Context data for rendering the HTML template
     context = {
@@ -396,16 +522,18 @@ def table_details2(request):
         'yesterday': yesterday,
         'table_list': table_list,
         'source_status': recent_statuses,
+        'url_friendly_names': url_friendly_names, 
     }
     return render(request, 'pivottable.html', context)
 
 
-
+# @require_http_methods(["GET"])
 def get_data_for_popup(request, table_name):
     today = datetime.today().date()
     yesterday = today - timedelta(days=1)
 
     data = scraping_log.objects.filter(table_name=table_name,trade_date=yesterday).order_by('-trade_date', '-Scraped_on').first()
+    print("output=======",data)
 
     amber_table_names = [
         'ace_52whl',
@@ -446,7 +574,9 @@ def get_data_for_popup(request, table_name):
         return JsonResponse(response_data)
     else:
         return JsonResponse({'message': 'Data not available for today.'})
-
+    
+    
+# @require_http_methods(["GET"])
 def get_recent_status(table_name):
     try:
         # Fetch the recent status for today's date
