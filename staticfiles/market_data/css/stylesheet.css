@@ -286,7 +286,7 @@ h1 {
 .popup-container {
   display: flex;
   position: fixed; 
-  height:420px;
+  height:380px;
   width:300px;
   top: 40%;
   left: 40%;

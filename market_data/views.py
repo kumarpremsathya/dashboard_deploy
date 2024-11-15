@@ -529,6 +529,7 @@ def table_details2(request):
 
 # @require_http_methods(["GET"])
 def get_data_for_popup(request, table_name):
+    
     today = datetime.today().date()
     yesterday = today - timedelta(days=1)
 
@@ -556,10 +557,10 @@ def get_data_for_popup(request, table_name):
         # Assuming data.trade_date is a string in the format "2023-12-29"
         trade_date_str = data.trade_date
 
-# Convert the string to a datetime object
+       # Convert the string to a datetime object
         trade_date = datetime.strptime(trade_date_str, "%Y-%m-%d")
 
-# Format the datetime object as "29-12-2023"
+       # Format the datetime object as "29-12-2023"
         formatted_trade_date = trade_date.strftime("%d-%m-%Y")
 
         response_data = {
@@ -573,7 +574,7 @@ def get_data_for_popup(request, table_name):
         }
         return JsonResponse(response_data)
     else:
-        return JsonResponse({'message': 'Data not available for today.'})
+        return HttpResponse(status=404)
     
     
 # @require_http_methods(["GET"])

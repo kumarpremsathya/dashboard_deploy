@@ -8,8 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'probe_agile_data/css/style.css' %}"> 
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.1/css/all.min.css">
+   
 
    
     <script type="text/javascript" src="{% static 'js/script.js' %}"></script> 
@@ -636,83 +635,7 @@
 
 	<!-- Load the script containing openPopup function first -->
     <!-- <script src="{% static 'path/to/script.js' %}"></script>  -->
-	<script>
-     
-    
- 
-    //Add this script to show the popup on clicking the source_name link in table 
-
 	
-	function openPopup(source_name) {
-		$.ajax({
-			url: `/probe/rbiget_data_for_popup1/${source_name}/`,
-			method: 'GET',
-			success: function (data) {
-				var popupContent = `
-					<div class="popup-container">
-						<span class="close-btn" onclick="closePopup()">X</span>
-						<p class="popup-info">Data Source: <span class="popup-style">${data.source_name}</span></p>
-						<p class="popup-info">Status: <span class="status-text">${data.script_status}</span></p>
-						<p class="popup-info">#Records Scraped: <span class="popup-style">${data.data_scraped}</span></p>
-						<p class="popup-info">Failure Reason: <span class="popup-style">${data.failure_reason}</span></p>
-						
-                        <p class="popup-info">Newly Added Count: <span class="popup-style">${data.newly_added_count}</span></p>
-						<p class="popup-info">Deleted Source Count: <span class="popup-style">${data.deleted_source_count}</span></p>
-                        <p class="popup-info">Scraped On: <span class="popup-style">${data.date_of_scraping}</span></p>
-					</div>
-				`;
-				$('body').append(popupContent);
-	
-				// Add class to status text based on the status ,adding the color to status in popup window.
-				var statusElement = document.querySelector('.status-text');
-				if (data.script_status.toLowerCase() === 'success') {
-					statusElement.classList.add('green');
-				} else if (data.script_status.toLowerCase() === 'failure'&& data.failure_reason.includes('204')) {
-					statusElement.classList.add('orange');
-				} else if (data.script_status.toLowerCase() === 'failure') {
-					statusElement.classList.add('red');
-				} else if (data.script_status.toLowerCase() === 'not run') {
-					statusElement.classList.add('red');
-				}
-	
-				$('.popup-container').fadeIn();
-			},
-			error: function (xhr, status, error) {
-				alert('Data not available for today.');
-			}
-		});
-	}
-	
-	function closePopup() {
-		$('.popup-container').fadeOut(function () {
-			$(this).remove();
-		});
-	}
-
-    {% comment %} // Highlighting the sidenavbar anchor tag links when we clicked with background colour greenyellow
-
-	function highlightSelectedTable() {
-		var selectedTable = "{{ source_name }}";  // Assuming table_name is defined in your Django context
-		var tableLinks = document.querySelectorAll('[data-source]');
-	
-		tableLinks.forEach(function (link) {
-			if (link.getAttribute('data-source') === selectedTable) {
-				link.classList.add('highlight');
-				// Apply styles directly
-				link.style.backgroundColor = 'greenyellow';
-				link.style.fontWeight = 'bold';
-				// Add any other styles you want to apply
-			}
-		});
-	}
-	
-
-	// Call the function to highlight the selected sidenavbar anchor tag links when we clicked .
-	highlightSelectedTable(); {% endcomment %}
-
-
-	
- </script>
-
+    <script src="{% static 'probe_agile_data/js/grid_dashboard.js' %}"></script>
 </body>
 </html>
